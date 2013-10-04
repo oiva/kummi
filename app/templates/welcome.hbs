@@ -1,21 +1,20 @@
-<div class="container">
-	<div class="hero-unit">
-		<h1>{{success}}</h1>
-		<p>You now have</p>
-		<ul>
-			<li>HTML5 Boilerplate</li>
-			<li>jQuery</li>
-			<li>Backbone.js</li>
-			<li>Marionette.js</li>
-			<li>Underscore.js</li>
-			<li>Handlebars.js</li>
-			<li>RequireJS</li>
-			<li>Twitter Bootstrap</li>
-			<li>Express</li>
-		</ul>
+<div class="hero-unit">
+	<h1>Pysäkkikummi</h1>
+	<p>Ryhdy pysäkkisi kummiksi. Kerro meille aika ajoin miten pysäkki voi, 
+		ja auta meitä pitämään ympäristösi paremmassa kunnossa.</p>
+</div>
+<div class="row">
+	<div class="col-xs-12 col-sm-6 col-md-8">
+		<label for="stop-id">Anna pysäkin koodi</label>
+		<input type="text" name="stop-id" id="stop-id" placeholder="1251" />
+		<button class="btn btn-primary" id="find-stop">Hae</button>
 
-		<p>installed.</p>
-		<h3>Enjoy coding!</h3>
-
+		{{#if geoLocation}}
+		<div id="position">
+			<h2>Lähistön pysäkit</h2>
+			<p id="loading-stops">Ladataan...</p>
+			<ul id="stops"></ul>
+		</div>
+		{{/if}}
 	</div>
 </div>
