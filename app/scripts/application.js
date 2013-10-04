@@ -1,24 +1,33 @@
 define([
 	'backbone',
 	'communicator',
-	'hbs!tmpl/welcome'
+	'controller',
+	'router'
 ],
 
-function( Backbone, Communicator, Welcome_tmpl ) {
+function( Backbone, Communicator, AppController, AppRouter) {
     'use strict';
-
-	var welcomeTmpl = Welcome_tmpl;
 
 	var App = new Backbone.Marionette.Application();
 
 	/* Add application regions here */
-	App.addRegions({});
+	App.addRegions({
+		'main': '#main'
+	});
 
 	/* Add initializers here */
 	App.addInitializer( function () {
-		document.body.innerHTML = welcomeTmpl({ success: "CONGRATS!" });
+		window.Communicator = Communicator;
 		Communicator.mediator.trigger("APP:START");
+
+		var appController = new AppController({app: this});
+		var appRouter = new AppRouter({controller: appController});
 	});
+
+	App.on('initialize:after', function() {
+    console.log('app initialized');
+    Backbone.history.start();
+  });
 
 	return App;
 });
