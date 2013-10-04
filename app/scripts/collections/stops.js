@@ -16,7 +16,7 @@ function(Backbone, Stop) {
       return null;
     },
     parse: function(response) {
-      return response.stops[0].loc;
+      return _.first(response, 5);
     }
   });
 });

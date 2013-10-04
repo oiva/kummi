@@ -8,8 +8,9 @@ var hbs = require('express-hbs');
 var baucis = require('baucis');
 var http = require('http');
 var config = require('./config');
-var xml2js = require('xml2js');
+//var xml2js = require('xml2js');
 var Promise = require('bluebird');
+var wgs84tokkj = require('./wgs84tokkj');
 
 // init express
 var app = express();
@@ -35,9 +36,16 @@ app.get('/api/nearby', function(req, res){
   var lon = req.query.lon,
       lat = req.query.lat;
 
+  var position = wgs84tokkj.WGS84lalo_to_KKJxy(
+    lat,
+    lon
+  );
+  var pos = Math.round(position[1])+','+Math.round(position[0]);
+
   var options = {
     host: 'api.reittiopas.fi',
-    path: '/public-ytv/fi/api/?closest_stops=1&lon='+lon+'&lat='+lat+'&user='+config.user+'&pass='+config.pass+'&radius=250'
+    path: '/hsl/prod/?request=stops_area&center_coordinate='+pos+'&user='+config.user+'&pass='+config.pass+'&radius=250'
+    //path: '/public-ytv/fi/api/?closest_stops=1&lon='+lon+'&lat='+lat+'&user='+config.user+'&pass='+config.pass+'&radius=250'
   };
   console.log(options.path);
 
@@ -50,6 +58,7 @@ app.get('/api/nearby', function(req, res){
 
     resp.on('end', function() {
       console.log('API call successful');
+      /*
       var parseOptions = {
         trim: true,
         normalizeTags: true,
@@ -58,13 +67,15 @@ app.get('/api/nearby', function(req, res){
       };
       var parser = new xml2js.Parser(parseOptions);
       console.log('parser created');
-      
-      parser.parseString(output, function(err, result) {
-        console.log('XML parsed');
-        res.writeHead(200, { 'Content-Type': 'text/plain' });
-        res.write(JSON.stringify(result));
+      console.log(output);
+      */
+      //parser.parseString(output, function(err, result) {
+        //console.log('XML parsed');
+        res.writeHead(200, { 'Content-Type': 'application/json' });
+        //res.write(JSON.stringify(result));
+        res.write(output);
         res.end();
-      });
+      //});
     });
   });
 

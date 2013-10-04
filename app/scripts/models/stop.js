@@ -8,7 +8,12 @@ function(Backbone) {
       x: 0,
       y: 0,
       dist: null,
-      code: null
+      code: null,
+      name: null,
+      city: null,
+      coords: null,
+      codeShort: null,
+      address: null
     }
   });
 });
