@@ -32,6 +32,31 @@ app.use(function(req, res, next){
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
 
+app.get('/api/stop', function(req, res){
+  var code = req.query.code;
+
+  var options = {
+    host: 'api.reittiopas.fi',
+    path: '/hsl/prod/?request=stop&code='+code+'&user='+config.user+'&pass='+config.pass
+  };
+  console.log(options.host+options.path);
+
+  var req = http.get(options, function(resp) {
+    var output = '';
+
+    resp.on('data', function (chunk) {
+      output += chunk;
+    });
+
+    resp.on('end', function() {
+      console.log('API call successful');
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.write(output);
+      res.end();
+    });
+  });
+});
+
 app.get('/api/nearby', function(req, res){
   var lon = req.query.lon,
       lat = req.query.lat;

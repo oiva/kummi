@@ -1,10 +1,11 @@
 define([
   'backbone',
   'models/appModel',
-  'views/welcomeView'
+  'views/welcomeView',
+  'views/stopView'
 ],
 
-function(Backbone, AppModel, WelcomeView) {
+function(Backbone, AppModel, WelcomeView, StopView) {
   'use strict';
 
   var controller = Backbone.Marionette.Controller.extend({
@@ -26,8 +27,17 @@ function(Backbone, AppModel, WelcomeView) {
       }, 100);
     },
 
-    stop: function(id) {
-      console.log(id);
+    stop: function(code) {
+      var stopView = new StopView({code: code, appModel: this.appModel});
+      this.app.main.show(stopView);
+
+      // check if stop exists
+      if (this.appModel.get('stops').where({code: code}).length > 0) {
+        return;
+      }
+      else {
+        this.appModel.loadStop(code);
+      }
     },
 
     _updatePosition: function() {

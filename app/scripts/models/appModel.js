@@ -15,6 +15,9 @@ function(Backbone, Stops) {
     updateLocation: function(lat, lon) {
       this.get('stops').lat = lat;
       this.get('stops').lon = lon;
+      this.getStops();
+    },
+    getStops: function() {
       this.get('stops').fetch({
         success: this.onStops,
         error: this.onStopsError,
@@ -26,6 +29,13 @@ function(Backbone, Stops) {
     },
     onStopsError: function(collection, response, options) {
       console.error('stops fetch failed');
+    },
+    loadStop: function(code) {
+      console.log('load stop '+code);
+      this.get('stops').lat = null;
+      this.get('stops').long = null;
+      this.get('stops').code = code;
+      this.getStops();
     }
   });
 });
