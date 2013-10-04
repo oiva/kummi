@@ -4,3 +4,4 @@ dist
 .sass-cache
 app/y
 .tmp/
+server/config.js

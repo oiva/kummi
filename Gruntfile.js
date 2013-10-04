@@ -80,7 +80,7 @@ module.exports = function (grunt) {
         express: {
             options: {
                 // Override defaults here
-                port: '9000'
+                port: '3000'
             },
             dev: {
                 options: {
@@ -133,7 +133,7 @@ module.exports = function (grunt) {
                 cssDir: '.tmp/styles',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
+                //fontsDir: '<%= yeoman.app %>/styles/fonts',
                 importPath: 'app/y',
                 relativeAssets: true
             },
