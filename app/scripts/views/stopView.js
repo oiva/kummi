@@ -57,7 +57,7 @@ function(Backbone, Template) {
       if (this.model === null) {
         return false;
       }
-      window.appRouter.navigate('report/'+this.model.get('code'));
+      window.appRouter.navigate('report/'+this.model.get('code'), {trigger: true});
       return false;
     }
   });

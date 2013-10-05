@@ -8,8 +8,9 @@ function (Backbone) {
       console.log('router init');
     },
     appRoutes: {
-      "": "welcome",
-      "stop/:id": "stop"
+      '': 'welcome',
+      'stop/:code': 'stop',
+      'report/:code': 'report'
     }
   });
   return router;

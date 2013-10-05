@@ -1,0 +1,17 @@
+<div class="hero-unit">
+
+{{#if name}}
+    <h1>{{name}}</h1>
+    <h2>Mitä pysäkille kuuluu?</h2>
+
+    {{#if getUserMedia}}
+    <button id="get-photo" type="button" class="btn">Ota kuva</button>
+    {{/if}}
+    {{#if fileInput}}
+    <input id="image-picker" type="file" accept="image/*" />
+    {{/if}}
+{{else}}
+<p class="info">Ladataan pysäkin tietoja...</p>
+{{/if}}
+  
+</div>

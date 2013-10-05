@@ -2,10 +2,11 @@ define([
   'backbone',
   'models/appModel',
   'views/welcomeView',
-  'views/stopView'
+  'views/stopView',
+  'views/reportView'
 ],
 
-function(Backbone, AppModel, WelcomeView, StopView) {
+function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
   'use strict';
 
   var controller = Backbone.Marionette.Controller.extend({
@@ -38,6 +39,12 @@ function(Backbone, AppModel, WelcomeView, StopView) {
       else {
         this.appModel.loadStop(code);
       }
+    },
+
+    report: function(code) {
+      console.log('report problem in '+code);
+      var reportView = new ReportView({code: code, model: this.appModel.get('stop')});
+      this.app.main.show(reportView);
     },
 
     _updatePosition: function() {
