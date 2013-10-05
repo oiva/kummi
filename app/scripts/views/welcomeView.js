@@ -11,7 +11,9 @@ function(Backbone, StopItemView, Template) {
     template: Template,
     itemView: StopItemView,
     itemViewContainer: '#stops',
-
+    events: {
+      'click #find-stop': 'findStop'
+    },
     initialize: function() {
       console.log('init welcome view');
       Communicator.mediator.on('position:error', this.onPositionError, this);
@@ -23,6 +25,11 @@ function(Backbone, StopItemView, Template) {
         geoLocation: Modernizr.geolocation
       };
       return context;
+    },
+    findStop: function() {
+      var code = this.$('#stop-id').val();
+      appRouter.navigate('stop/'+code, {trigger: true});
+      return false;
     },
     onPositionError: function(errorCode) {
       console.log('welcome view: position error');
