@@ -5,3 +5,4 @@ dist
 app/y
 .tmp/
 server/config.js
+todo.txt
