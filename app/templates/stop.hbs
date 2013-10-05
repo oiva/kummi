@@ -10,9 +10,33 @@
 {{#if name}}
 <div class="row">
   <div class="col-xs-12 col-sm-12">
+    <button id="adopt-stop" type="button" class="btn btn-primary">Ryhdy pysäkin kummiksi</button>
+    <div id="adopt-form" class="hidden">
+      <div class="form-group">
+        <label for="email">Sähköpostiosoitteesi</label>
+        <input type="email" name="email" id="email" placeholder="" />
+        <button id="adopt-send" type="submit" class="btn btn-default">Lähetä</button>
+      </div>
+    </div>
+  </div>
+</div>
+<div class="row" id="stop-users-container" style="display: none">
+  <div class="col-xs-12 col-sm-12">
+    <h3>Pysäkin kummit</h3>
+    <div id="stop-users"></div>
+  </div>
+</div>
+<div class="row">
+  <div class="col-xs-12 col-sm-12">
     <h2>Mitä pysäkille kuuluu?</h2>
     <button type="button" class="btn btn-success" id="report-ok">Pysäkillä on kaikki OK</button>
     <button type="button" class="btn btn-danger" id="report-problem">Pysäkillä on ongelma</button>
+  </div>
+</div>
+<div class="row" id="stop-reports-container" style="display: none">
+  <div class="col-xs-12 col-sm-12">
+    <h3>Raportoidut ongelmat</h3>
+    <div id="stop-reports"></div>
   </div>
 </div>
 {{/if}}

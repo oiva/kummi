@@ -1,9 +1,13 @@
 define([
   'backbone',
-  'hbs!tmpl/stop'
+  'hbs!tmpl/stop',
+  'collections/reports',
+  'collections/users',
+  'models/user',
+  'views/reportsView'
 ],
 
-function(Backbone, Template) {
+function(Backbone, Template, ReportsCollection, UsersCollection, UserModel, ReportsCollectionView) {
   'use strict';
 
   return Backbone.Marionette.ItemView.extend({
@@ -11,7 +15,9 @@ function(Backbone, Template) {
     model: null,
     events: {
       'click #report-ok': 'reportOK',
-      'click #report-problem': 'reportProblem'
+      'click #report-problem': 'reportProblem',
+      'click #adopt-stop': 'adoptStop',
+      'click #adopt-send': 'adoptSend'
     },
     
     initialize: function() {
@@ -28,6 +34,10 @@ function(Backbone, Template) {
       console.log('stop loaded', stop);
       this.model = stop;
       this.render();
+    },
+    onRender: function() {
+      this.getReports();
+      this.getUsers();
     },
     getModel: function(code) {
       console.log('getModel '+code);
@@ -78,6 +88,59 @@ function(Backbone, Template) {
       }
       window.appRouter.navigate('report/'+this.model.get('code'), {trigger: true});
       return false;
+    },
+    getReports: function() {
+      if (this.model === null) {
+        return false;
+      }
+      console.log('get reports');
+      var reportsCollection = new ReportsCollection({code: this.model.get('code')});
+      reportsCollection.fetch({success: _.bind(this.onReports, this)});
+    },
+    onReports: function(collection) {
+      console.log('got reports', collection);
+      if (collection.length == 0) {
+        this.$('#stop-reports-container').hide();
+        return;
+      }
+      var reportsCollectionView = new ReportsCollectionView({collection: collection});
+      reportsCollectionView.render();
+      this.$('#stop-reports').html(reportsCollectionView.el);
+      this.$('#stop-reports-container').show();
+    },
+    getUsers: function() {
+      if (this.model === null) {
+        return false;
+      }
+      var usersCollection = new UsersCollection({code: this.model.get('code')});
+      usersCollection.fetch({success: _.bind(this.onUsers, this)});
+    },
+    onUsers: function(collection) {
+      this.$('#stop-users').html('');
+      this.$('#stop-users-container').toggle(collection.length > 0);
+      var _this = this;
+      console.log('users', collection);
+      var users = _.uniq(collection.models, false, function(user) {
+        return user.get('email');
+      });
+      _.each(users, function(user) {
+        _this.$('#stop-users').append('<p>'+user.get('email')+'</p>');
+      });
+    },
+    adoptStop: function() {
+      this.$('#adopt-form').removeClass('hidden');
+      this.$('#adopt-stop').remove();
+      return false;
+    },
+    adoptSend: function() {
+      var email = this.$('#email').val();
+      var user = new UserModel({email: email, code: this.model.get('code')});
+      user.save();
+      this.$('#adopt-form').html('<p class="text-success">Olet nyt pysäkin kummi!</p>');
+      return false;
+    },
+    userCreated: function() {
+      console.log('user created');
     }
   });
 });
