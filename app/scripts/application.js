@@ -6,7 +6,7 @@ define([
 ],
 
 function( Backbone, Communicator, AppController, AppRouter) {
-    'use strict';
+  'use strict';
 
 	var App = new Backbone.Marionette.Application();
 
@@ -22,6 +22,7 @@ function( Backbone, Communicator, AppController, AppRouter) {
 
 		var appController = new AppController({app: this});
 		var appRouter = new AppRouter({controller: appController});
+		window.appRouter = appRouter;
 	});
 
 	App.on('initialize:after', function() {
