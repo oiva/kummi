@@ -14,6 +14,9 @@ function(Backbone) {
       coords: null,
       codeShort: null,
       address: null
+    },
+    reportOK: function() {
+      console.log('stop '+this.get('code')+' is OK');
     }
   });
 });
