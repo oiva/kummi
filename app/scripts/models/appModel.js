@@ -4,6 +4,8 @@ define([
 ],
 
 function(Backbone, Stops) {
+  'use strict';
+
   return Backbone.Model.extend({
     defaults: {
       stops: null,
@@ -19,13 +21,17 @@ function(Backbone, Stops) {
     },
     getStops: function() {
       this.get('stops').fetch({
-        success: this.onStops,
-        error: this.onStopsError,
+        success: _.bind(this.onStops, this),
+        error: _.bind(this.onStopsError, this),
         reset: true
       });
     },
     onStops: function(collection, response, options) {
       console.log('stops fetched', collection);
+      if (collection.code !== null && collection.length === 1) {
+        console.log('loaded specific stop');
+        this.set({stop: collection.models[0]});
+      }
     },
     onStopsError: function(collection, response, options) {
       console.error('stops fetch failed');
