@@ -13,6 +13,7 @@ var wgs84tokkj = require('./wgs84tokkj');
 var Open311 = require('open311');
 var mongoose = require('mongoose');
 var api = require('./api.js');
+var userApi = require('./userApi.js');
 
 // init express
 var app = express();
@@ -77,7 +78,6 @@ app.get('/api/nearby', function(req, res){
     host: 'api.reittiopas.fi',
     path: '/hsl/prod/?request=stops_area&center_coordinate='+pos+'&user='+config.user+'&pass='+config.pass+'&radius=250'
   };
-  console.log(options.path);
 
   var req = http.get(options, function(resp) {
     var output = '';
@@ -101,30 +101,54 @@ app.get('/api/nearby', function(req, res){
 
 app.post('/api/report', function(req, res){
   var options = {
-    endpoint     : 'https://pate.affecto.com/restWAR/open311/v1/'
+    endpoint: 'https://pate.affecto.com/restWAR/open311/v1/',
+    apiKey: config.api_key
   };
 
   var helsinki = new Open311(options);
 
   var data = {
-    'api_key': config.api_key,
+    //'api_key': config.api_key,
     'service_code' : req.body.service_code,
     'lat': req.body.lat,
     'long': req.body.lon,
-    'description': req.body.description,
-    'code': req.body.code
+    'description': req.body.description
   };
   console.log(data);
 
-  api.post(data);
+  helsinki.submitRequest(data, function(err, response) {
+    console.log('err', err);
+    console.log('response', response);
 
-  res.writeHead(200, { 'Content-Type': 'application/json' });
-  res.write('{"service_request_id": 0}');
-  res.end();
-}); 
+    if (err !== null) {
+      res.write('{"error": "'+err+'"}');
+      res.end();
+      return;
+    }
 
-app.get('/api/report/:code', api.show);
-app.get('/api/report', api.list);
+    data.service_request_id = response.service_request_id;
+    data.code = req.body.code;
+    api.post(data);
+    res.write('{"service_request_id": 0}');
+    res.end();
+  });
+});
+
+app.get('/api/report/:code', api.list);
+
+app.post('/api/user', function(req, res) {
+  var data = {
+    email: req.body.email,
+    code: req.body.code
+  };
+
+  userApi.post(data);
+});
+
+app.get('/api/user/:code', userApi.list);
+
+//app.get('/api/report/:code/:id', api.show);
+//app.get('/api/report', api.list);
 
 // route index.html
 app.get('/', function(req, res){
