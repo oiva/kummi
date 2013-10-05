@@ -11,10 +11,13 @@ var config = require('./config');
 var Promise = require('bluebird');
 var wgs84tokkj = require('./wgs84tokkj');
 var Open311 = require('open311');
-
+var mongoose = require('mongoose');
+var api = require('./api.js');
 
 // init express
 var app = express();
+
+mongoose.connect('mongodb://localhost/'+config.db_name);
 
 app.configure(function(){
     app.set('port', process.env.PORT || 3000);
@@ -110,10 +113,15 @@ app.post('/api/report', function(req, res){
   };
   console.log(data);
 
+  api.post(req, res);
+
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.write('{"service_request_id": 0}');
   res.end();
 }); 
+
+app.get('/api/report/:code', api.show);
+app.get('/api/report', api.list);
 
 // route index.html
 app.get('/', function(req, res){
