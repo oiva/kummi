@@ -16,7 +16,9 @@ var api = require('./api.js');
 
 // init express
 var app = express();
+app.use(express.bodyParser());
 
+//mongoose.connect('mongodb://'+config.db_user+':'+config.db_passwd+'@localhost/'+config.db_name);
 mongoose.connect('mongodb://localhost/'+config.db_name);
 
 app.configure(function(){
@@ -106,14 +108,15 @@ app.post('/api/report', function(req, res){
 
   var data = {
     'api_key': config.api_key,
-    'service_code' : req.query.service_code,
-    'lat': req.query.lat,
-    'long': req.query.lon,
-    'description': req.query.description
+    'service_code' : req.body.service_code,
+    'lat': req.body.lat,
+    'long': req.body.lon,
+    'description': req.body.description,
+    'code': req.body.code
   };
   console.log(data);
 
-  api.post(req, res);
+  api.post(data);
 
   res.writeHead(200, { 'Content-Type': 'application/json' });
   res.write('{"service_request_id": 0}');

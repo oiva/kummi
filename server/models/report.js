@@ -5,11 +5,10 @@ var mongoose = require('mongoose')
 var reportSchema = new Schema({
     service_request_id: ObjectId,
     date: {type: Date, default: Date.now},
-    author: {type: String, default: 'Anon'},
     description: String,
-    service_code: Number,
-    lat: Number,
-    lon: Number,
+    service_code: String,
+    lat: String,
+    lon: String,
     code: String // stop code
 });
  

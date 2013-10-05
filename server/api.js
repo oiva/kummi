@@ -1,13 +1,13 @@
 var Report = require('./models/report.js');
 
-exports.post = function(req, res) {
-  new Report({
-    description: req.body.description,
-    service_code: req.body.service_code,
-    lat: req.body.lat,
-    lon: req.body.lon,
-    code: req.body.code
-  }).save();
+exports.post = function(data) {
+  console.log('save data');
+  console.log(data);
+  delete(data.api_key);
+  var report = new Report(data).save(function(err, doc) {
+    console.log('error',err);
+    console.log('doc', doc);
+  });
 }
 
 exports.list = function(req, res) {
