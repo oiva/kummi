@@ -17,13 +17,22 @@ function(Backbone, Template) {
     initialize: function() {
       console.log('stop view init: '+this.options.code);
       this.code = this.options.code;
-      this.model = this.getModel();
+      this.model = this.getModel(this.code);
       
       if (this.model === null) {
-        this.options.appModel.get('stops').on('reset', this.render);
+        this.listenTo(this.options.appModel.get('stops'), 'reset', this.render);
+        this.listenTo(this.options.appModel, 'change:stop', this.render);
       }
     },
     getModel: function(code) {
+      console.log('getModel '+code);
+
+      var stop = this.options.appModel.get('stop');
+      if (stop !== null && (stop.get('code') == code || stop.get('code_short') == code)) {
+        console.log('found with code');
+        return stop;
+      }
+      console.log(stop);
       var stops = this.options.appModel.get('stops').where({code: this.code});
 
       // stops not loaded
@@ -34,7 +43,7 @@ function(Backbone, Template) {
     },
     serializeData: function() {
       var context = {};
-      this.model = this.getModel();
+      this.model = this.getModel(this.code);
       if (this.model !== null) {
         context = this.model.toJSON();
         if (context.name === null && context.name_fi !== null) {
