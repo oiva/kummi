@@ -2,14 +2,32 @@
 
 {{#if name}}
     <h1>{{name}}</h1>
-    <h2>Mitä pysäkille kuuluu?</h2>
+  
+  <form role="form" id="report-form">
+    <div class="form-group">
+    
+      <label for="service_code_201">Ongelma</label>
+      {{#each services}}
+      <div class="radio">
+        <label>
+          <input type="radio" name="service-code" id="service_code_{{id}}" value="{{id}}" />
+          {{name}}
+        </label>
+      </div>
+      {{/each}}
+    </div>
 
-    {{#if getUserMedia}}
-    <button id="get-photo" type="button" class="btn">Ota kuva</button>
-    {{/if}}
-    {{#if fileInput}}
-    <input id="image-picker" type="file" accept="image/*" />
-    {{/if}}
+    <div class="form-group">
+      <label for="description">Kerro ongelmasta</label>
+      <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+    </div>
+
+    <div class="form-group">
+      <label for="image-picker">Ota kuva</label>
+      <input id="image-picker" type="file" accept="image/*" />
+    </div>
+    <button id="send-report" type="submit" class="btn btn-default">Lähetä</button>
+  </form>
 {{else}}
 <p class="info">Ladataan pysäkin tietoja...</p>
 {{/if}}

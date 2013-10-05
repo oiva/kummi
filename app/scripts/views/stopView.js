@@ -21,8 +21,13 @@ function(Backbone, Template) {
       
       if (this.model === null) {
         this.listenTo(this.options.appModel.get('stops'), 'reset', this.render);
-        this.listenTo(this.options.appModel, 'change:stop', this.render);
       }
+      this.listenTo(this.options.appModel, 'change:stop', this.onChangeStop);
+    },
+    onChangeStop: function(stop) {
+      console.log('stop loaded', stop);
+      this.model = stop;
+      this.render();
     },
     getModel: function(code) {
       console.log('getModel '+code);
@@ -33,13 +38,18 @@ function(Backbone, Template) {
         return stop;
       }
       console.log(stop);
+      
       var stops = this.options.appModel.get('stops').where({code: this.code});
+      var stopsWithShortCode = this.options.appModel.get('stops').where({code_short: this.code});
 
       // stops not loaded
-      if (typeof stops === undefined || stops === null || stops.length === 0) {
+      if (stops.length === 0 && stopsWithShortCode.length === 0) {
         return null;
+      } else if (stops.length > 0) {
+        return stops[0];
+      } else {
+        return stopsWithShortCode[0];
       }
-      return stops[0];
     },
     serializeData: function() {
       var context = {};

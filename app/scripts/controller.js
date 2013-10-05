@@ -32,17 +32,30 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
       var stopView = new StopView({code: code, appModel: this.appModel});
       this.app.main.show(stopView);
 
-      // check if stop exists
-      if (this.appModel.get('stops').where({code: code}).length > 0) {
+      // load full stop details
+      if (this.appModel.get('stop') === null 
+        || (this.appModel.get('stop').get('code') != code
+         && this.appModel.get('stop').get('code_short') != code)) {
+        this.appModel.loadStop(code);
+      }
+
+      // check if stop exists in collection
+      var matchingStops = this.appModel.get('stops').where({code: code});
+      var matchingShortCode = this.appModel.get('stops').where({code_short: code});
+
+      if (matchingStops.length > 0) {
+        this.appModel.set({stop: matchingStops[0]});
         return;
       }
-      else {
-        this.appModel.loadStop(code);
+      if (matchingShortCode.length > 0) {
+        this.appModel.set({stop: matchingShortCode[0]});
+        return;
       }
     },
 
     report: function(code) {
       console.log('report problem in '+code);
+      console.log(this.appModel.get('stop'));
       var reportView = new ReportView({code: code, model: this.appModel.get('stop')});
       this.app.main.show(reportView);
     },
