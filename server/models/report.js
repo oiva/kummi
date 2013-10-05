@@ -3,7 +3,8 @@ var mongoose = require('mongoose')
    ,ObjectId = Schema.ObjectId;
  
 var reportSchema = new Schema({
-    service_request_id: ObjectId,
+    id: ObjectId,
+    service_request_id: String,
     date: {type: Date, default: Date.now},
     description: String,
     service_code: String,

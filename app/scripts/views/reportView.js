@@ -13,7 +13,8 @@ function(Backbone, Template, Report) {
     events: {
       'click #get-picture': 'getPicture',
       //'click #send-report': 'sendReport'
-      'submit #report-form': 'sendReport'
+      'submit #report-form': 'sendReport',
+      'click #report-back': 'goBack'
     },
     ui: {
       'description': '#description'
@@ -67,18 +68,29 @@ function(Backbone, Template, Report) {
 
       report.set({
         description: description,
-        service_code: service_code,
+        service_code: ""+service_code,
         code: ""+code
       });
       console.log('report', report);
       
-      if (this.model.get('wgs_coords') !== null) {
+      if (typeof this.model.get('wgs_coords') !== undefined 
+        && this.model.get('wgs_coords') !== null) {
         report.setCoords(this.model.get('wgs_coords'));
-      } else if (this.model.get('coords') !== null) {
-        report.setKkjCoords(this.model.get('coords'));
+      } else {
+        console.warn('coords not found', this.model);
       }
       report.save();
+
+      this.fakeResult();
       event.preventDefault();
+      return false;
+    },
+    fakeResult: function() {
+      this.$('#report-form').hide();
+      this.$('#report-sent').show();
+    },
+    goBack: function() {
+      appRouter.navigate('', {trigger: true});
       return false;
     }
   });

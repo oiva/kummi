@@ -28,6 +28,10 @@
     </div>
     <button id="send-report" type="submit" class="btn btn-default">Lähetä</button>
   </form>
+  <div id="report-sent" style="display: none">
+    <p class="text-success">Viestisi on lähetetty!</p>
+    <button type="button" class="btn btn-default" id="report-back">Takaisin</button>
+  </div>
 {{else}}
 <p class="info">Ladataan pysäkin tietoja...</p>
 {{/if}}

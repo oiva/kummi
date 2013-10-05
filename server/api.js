@@ -11,7 +11,7 @@ exports.post = function(data) {
 }
 
 exports.list = function(req, res) {
-  Report.find(function(err, reports) {
+  Report.find({code: req.params.code}, function(err, reports) {
     res.send(reports);
   });
 }
