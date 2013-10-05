@@ -8,9 +8,10 @@ var hbs = require('express-hbs');
 var baucis = require('baucis');
 var http = require('http');
 var config = require('./config');
-//var xml2js = require('xml2js');
 var Promise = require('bluebird');
 var wgs84tokkj = require('./wgs84tokkj');
+var Open311 = require('open311');
+
 
 // init express
 var app = express();
@@ -70,7 +71,6 @@ app.get('/api/nearby', function(req, res){
   var options = {
     host: 'api.reittiopas.fi',
     path: '/hsl/prod/?request=stops_area&center_coordinate='+pos+'&user='+config.user+'&pass='+config.pass+'&radius=250'
-    //path: '/public-ytv/fi/api/?closest_stops=1&lon='+lon+'&lat='+lat+'&user='+config.user+'&pass='+config.pass+'&radius=250'
   };
   console.log(options.path);
 
@@ -83,24 +83,9 @@ app.get('/api/nearby', function(req, res){
 
     resp.on('end', function() {
       console.log('API call successful');
-      /*
-      var parseOptions = {
-        trim: true,
-        normalizeTags: true,
-        explicitRoot: false,
-        mergeAttrs: true
-      };
-      var parser = new xml2js.Parser(parseOptions);
-      console.log('parser created');
-      console.log(output);
-      */
-      //parser.parseString(output, function(err, result) {
-        //console.log('XML parsed');
-        res.writeHead(200, { 'Content-Type': 'application/json' });
-        //res.write(JSON.stringify(result));
-        res.write(output);
-        res.end();
-      //});
+      res.writeHead(200, { 'Content-Type': 'application/json' });
+      res.write(output);
+      res.end();
     });
   });
 
@@ -109,8 +94,25 @@ app.get('/api/nearby', function(req, res){
   });
 });
 
-app.get('/api/stop/:id', function(req, res){
+app.post('/api/report', function(req, res){
+  var options = {
+    endpoint     : 'https://pate.affecto.com/restWAR/open311/v1/'
+  };
 
+  var helsinki = new Open311(options);
+
+  var data = {
+    'api_key': config.api_key,
+    'service_code' : req.query.service_code,
+    'lat': req.query.lat,
+    'long': req.query.lon,
+    'description': req.query.description
+  };
+  console.log(data);
+
+  res.writeHead(200, { 'Content-Type': 'application/json' });
+  res.write('{"service_request_id": 0}');
+  res.end();
 }); 
 
 // route index.html
