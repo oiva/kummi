@@ -38,6 +38,7 @@ app.use(function(req, res, next){
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
 
+// public API
 app.get('/api/stop/:code', stopsApi.show);
 app.get('/api/stop/:lat/:lon', stopsApi.list);
 
