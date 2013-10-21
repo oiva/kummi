@@ -10,7 +10,7 @@ var http = require('http');
 var mongoose = require('mongoose');
 
 var config = require('./config');
-var wgs84tokkj = require('./wgs84tokkj');
+var stopsApi = require('./controllers/stops.js');
 var reportsApi = require('./controllers/reports.js');
 var usersApi = require('./controllers/users.js');
 
@@ -38,65 +38,8 @@ app.use(function(req, res, next){
 app.use(express.static( path.join( __dirname, '../app') ));
 app.use(express.static( path.join( __dirname, '../.tmp') ));
 
-app.get('/api/stop', function(req, res){
-  var code = req.query.code;
-
-  var options = {
-    host: 'api.reittiopas.fi',
-    path: '/hsl/prod/?request=stop&code='+code+'&user='+config.user+'&pass='+config.pass
-  };
-  console.log(options.host+options.path);
-
-  var req = http.get(options, function(resp) {
-    var output = '';
-
-    resp.on('data', function (chunk) {
-      output += chunk;
-    });
-
-    resp.on('end', function() {
-      console.log('API call successful');
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.write(output);
-      res.end();
-    });
-  });
-});
-
-app.get('/api/nearby', function(req, res){
-  var lon = req.query.lon,
-      lat = req.query.lat;
-
-  var position = wgs84tokkj.WGS84lalo_to_KKJxy(
-    lat,
-    lon
-  );
-  var pos = Math.round(position[1])+','+Math.round(position[0]);
-
-  var options = {
-    host: 'api.reittiopas.fi',
-    path: '/hsl/prod/?request=stops_area&center_coordinate='+pos+'&user='+config.user+'&pass='+config.pass+'&radius=250'
-  };
-
-  var req = http.get(options, function(resp) {
-    var output = '';
-
-    resp.on('data', function (chunk) {
-      output += chunk;
-    });
-
-    resp.on('end', function() {
-      console.log('API call successful');
-      res.writeHead(200, { 'Content-Type': 'application/json' });
-      res.write(output);
-      res.end();
-    });
-  });
-
-  req.on('error', function(err) {
-    res.send('error: ' + err.message);
-  });
-});
+app.get('/api/stop/:code', stopsApi.show);
+app.get('/api/stop/:lat/:lon', stopsApi.list);
 
 app.post('/api/report', reportsApi.post);
 app.get('/api/report/:code', reportsApi.list);
@@ -109,11 +52,7 @@ app.get('/', function(req, res){
   res.sendfile( path.join( __dirname, '../app/index.html' ) );
 });
 
-
 // start server
 http.createServer(app).listen(app.get('port'), function(){
     console.log('Express App started!');
 });
-
-
-

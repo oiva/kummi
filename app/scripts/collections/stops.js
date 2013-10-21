@@ -14,9 +14,9 @@ function(Backbone, Stop) {
        && typeof this.lon !== undefined
        && this.lat !== null
        && this.lon !== null) {
-        return 'api/nearby?lat='+this.lat+'&lon='+this.lon;
+        return 'api/stop/'+this.lat+'/'+this.lon;
       } else if (typeof this.code !== undefined && this.code !== null) {
-        return 'api/stop?code='+this.code;
+        return 'api/stop/'+this.code;
       }
       return null;
     },
