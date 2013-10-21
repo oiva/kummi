@@ -1,8 +1,8 @@
 var http = require('http');
 
-var config = require('../config.js');
-var Stop = require('../models/stop.js');
-var wgs84tokkj = require('../wgs84tokkj');
+var config = require('../config');
+var Stop = require('../models/stop');
+var wgs84tokkj = require('../libs/wgs84tokkj');
 
 exports.list = function(req, res) {
   var lon = req.params.lon,

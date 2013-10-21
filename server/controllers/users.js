@@ -1,4 +1,4 @@
-var User = require('../models/user.js');
+var User = require('../models/user');
 
 exports.post = function(req, res) {
   var data = {

@@ -1,6 +1,6 @@
 var Open311 = require('open311');
 var config = require('../config');
-var Report = require('../models/report.js');
+var Report = require('../models/report');
 
 var saveReport = function(data) {
   var report = new Report(data).save(function(err, doc) {

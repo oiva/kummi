@@ -10,9 +10,9 @@ var http = require('http');
 var mongoose = require('mongoose');
 
 var config = require('./config');
-var stopsApi = require('./controllers/stops.js');
-var reportsApi = require('./controllers/reports.js');
-var usersApi = require('./controllers/users.js');
+var stopsApi = require('./controllers/stops');
+var reportsApi = require('./controllers/reports');
+var usersApi = require('./controllers/users');
 
 // init express
 var app = express();
