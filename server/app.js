@@ -7,11 +7,10 @@ var async = require('async');
 var hbs = require('express-hbs');
 var baucis = require('baucis');
 var http = require('http');
-var config = require('./config');
-var Promise = require('bluebird');
-var wgs84tokkj = require('./wgs84tokkj');
-var Open311 = require('open311');
 var mongoose = require('mongoose');
+
+var config = require('./config');
+var wgs84tokkj = require('./wgs84tokkj');
 var reportsApi = require('./controllers/reports.js');
 var usersApi = require('./controllers/users.js');
 
@@ -99,41 +98,7 @@ app.get('/api/nearby', function(req, res){
   });
 });
 
-app.post('/api/report', function(req, res){
-  var options = {
-    endpoint: 'https://pate.affecto.com/restWAR/open311/v1/',
-    apiKey: config.api_key
-  };
-
-  var helsinki = new Open311(options);
-
-  var data = {
-    //'api_key': config.api_key,
-    'service_code' : req.body.service_code,
-    'lat': req.body.lat,
-    'long': req.body.lon,
-    'description': req.body.description
-  };
-  console.log(data);
-
-  helsinki.submitRequest(data, function(err, response) {
-    console.log('err', err);
-    console.log('response', response);
-
-    if (err !== null) {
-      res.write('{"error": "'+err+'"}');
-      res.end();
-      return;
-    }
-
-    data.service_request_id = response.service_request_id;
-    data.code = req.body.code;
-    api.post(data);
-    res.write('{"service_request_id": 0}');
-    res.end();
-  });
-});
-
+app.post('/api/report', reportsApi.post);
 app.get('/api/report/:code', reportsApi.list);
 
 app.post('/api/user', usersApi.post);
