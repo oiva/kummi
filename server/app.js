@@ -12,8 +12,8 @@ var Promise = require('bluebird');
 var wgs84tokkj = require('./wgs84tokkj');
 var Open311 = require('open311');
 var mongoose = require('mongoose');
-var api = require('./api.js');
-var userApi = require('./userApi.js');
+var reportsApi = require('./controllers/reports.js');
+var usersApi = require('./controllers/users.js');
 
 // init express
 var app = express();
@@ -134,21 +134,10 @@ app.post('/api/report', function(req, res){
   });
 });
 
-app.get('/api/report/:code', api.list);
+app.get('/api/report/:code', reportsApi.list);
 
-app.post('/api/user', function(req, res) {
-  var data = {
-    email: req.body.email,
-    code: req.body.code
-  };
-
-  userApi.post(data);
-});
-
-app.get('/api/user/:code', userApi.list);
-
-//app.get('/api/report/:code/:id', api.show);
-//app.get('/api/report', api.list);
+app.post('/api/user', usersApi.post);
+app.get('/api/user/:code', usersApi.list);
 
 // route index.html
 app.get('/', function(req, res){
