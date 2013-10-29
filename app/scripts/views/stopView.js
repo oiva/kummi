@@ -1,18 +1,21 @@
 define([
   'backbone',
   'hbs!tmpl/stop',
-  'collections/reports',
-  'collections/users',
   'models/user',
-  'views/reportsView'
+  'views/reportsView',
+  'views/stopNameView'
 ],
 
-function(Backbone, Template, ReportsCollection, UsersCollection, UserModel, ReportsCollectionView) {
+function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView) {
   'use strict';
 
-  return Backbone.Marionette.ItemView.extend({
+  return Backbone.Marionette.Layout.extend({
     template: Template,
-    model: null,
+    regions: {
+      name: '#name',
+      reports: '#stop-reports'
+    },
+
     events: {
       'click #report-ok': 'reportOK',
       'click #report-problem': 'reportProblem',
@@ -21,59 +24,32 @@ function(Backbone, Template, ReportsCollection, UsersCollection, UserModel, Repo
     },
     
     initialize: function() {
-      console.log('stop view init: '+this.options.code);
+      console.log('stop view init');
       this.code = this.options.code;
-      this.model = this.getModel(this.code);
+      this.model = this.options.appModel.get('stop');
       
-      if (this.model === null) {
-        this.listenTo(this.options.appModel.get('stops'), 'reset', this.render);
+      if (this.model.get('code') != this.code) {
+        this.options.appModel.loadStop(this.code);
       }
-      this.listenTo(this.options.appModel, 'change:stop', this.onChangeStop);
+
+      this.listenTo(this.model.get('reports'), 'reset', this.onReports);
+      this.listenTo(this.model.get('users'), 'reset', this.onUsers);
+      this.listenTo(this.model, 'change:code', this.onChangeStop);
     },
     onChangeStop: function(stop) {
-      console.log('stop loaded', stop);
+      console.log('stopView: stop '+stop.get('code')+' loaded', stop);
+      if (stop.get('code') !== this.code && stop.get('code_short') !== this.code) {
+        return;
+      }
       this.model = stop;
       this.render();
+      
+      this.model.getReports();
+      this.model.getUsers();
     },
     onRender: function() {
-      this.getReports();
-      this.getUsers();
-    },
-    getModel: function(code) {
-      console.log('getModel '+code);
-
-      var stop = this.options.appModel.get('stop');
-      if (stop !== null && (stop.get('code') == code || stop.get('code_short') == code)) {
-        console.log('found with code');
-        return stop;
-      }
-      console.log(stop);
-      
-      var stops = this.options.appModel.get('stops').where({code: this.code});
-      var stopsWithShortCode = this.options.appModel.get('stops').where({code_short: this.code});
-
-      // stops not loaded
-      if (stops.length === 0 && stopsWithShortCode.length === 0) {
-        return null;
-      } else if (stops.length > 0) {
-        return stops[0];
-      } else {
-        return stopsWithShortCode[0];
-      }
-    },
-    serializeData: function() {
-      var context = {};
-      this.model = this.getModel(this.code);
-      if (this.model !== null) {
-        context = this.model.toJSON();
-        if (context.name === null && context.name_fi !== null) {
-          context.name = context.name_fi;
-          context.address = context.address_fi;
-          context.city = context.city_fi;
-        }
-      }
-      console.log('context', context);
-      return context;
+      var stopName = new StopNameView({model: this.model});
+      this.name.show(stopName);
     },
     reportOK: function() {
       if (this.model === null) {
@@ -89,35 +65,11 @@ function(Backbone, Template, ReportsCollection, UsersCollection, UserModel, Repo
       window.appRouter.navigate('report/'+this.model.get('code'), {trigger: true});
       return false;
     },
-    getReports: function() {
-      if (this.model === null) {
-        return false;
-      }
-      console.log('get reports');
-      var reportsCollection = new ReportsCollection({code: this.model.get('code')});
-      reportsCollection.fetch({success: _.bind(this.onReports, this)});
-    },
     onReports: function(collection) {
-      console.log('got reports', collection);
-      if (collection.length == 0) {
-        this.$('#stop-reports-container').hide();
-        return;
-      }
       var reportsCollectionView = new ReportsCollectionView({collection: collection});
-      reportsCollectionView.render();
-      this.$('#stop-reports').html(reportsCollectionView.el);
-      this.$('#stop-reports-container').show();
-    },
-    getUsers: function() {
-      if (this.model === null) {
-        return false;
-      }
-      var usersCollection = new UsersCollection({code: this.model.get('code')});
-      usersCollection.fetch({success: _.bind(this.onUsers, this)});
+      this.reports.show(reportsCollectionView);
     },
     onUsers: function(collection) {
-      this.$('#stop-users').html('');
-      this.$('#stop-users-container').toggle(collection.length > 0);
       var _this = this;
       console.log('users', collection);
       var users = _.uniq(collection.models, false, function(user) {

@@ -1,13 +1,6 @@
-<div class="hero-unit">
-  {{#if name}}
-  <h1>{{name}}</h1>
-  <p class="info">{{address}}, {{city}}</p>
-  {{else}}
-  <p>Ladataan pysäkin tietoja...</p>
-  {{/if}}
-</div>
+<div id="name"></div>
 
-{{#if name}}
+
 <div class="row">
   <div class="col-xs-12 col-sm-12">
     <button id="adopt-stop" type="button" class="btn btn-primary">Ryhdy pysäkin kummiksi</button>
@@ -33,10 +26,9 @@
     <button type="button" class="btn btn-danger" id="report-problem">Pysäkillä on ongelma</button>
   </div>
 </div>
-<div class="row" id="stop-reports-container" style="display: none">
+<div class="row" id="stop-reports-container">
   <div class="col-xs-12 col-sm-12">
     <h3>Raportoidut ongelmat</h3>
     <div id="stop-reports"></div>
   </div>
 </div>
-{{/if}}

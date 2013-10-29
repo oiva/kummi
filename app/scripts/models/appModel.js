@@ -1,9 +1,10 @@
 define([
   'backbone',
-  'collections/stops'
+  'collections/stops',
+  'models/stop'
 ],
 
-function(Backbone, Stops) {
+function(Backbone, Stops, Stop) {
   'use strict';
 
   return Backbone.Model.extend({
@@ -12,36 +13,35 @@ function(Backbone, Stops) {
       stop: null
     },
     initialize: function() {
-      this.set({stops: new Stops()});
+      this.set({stops: new Stops(), stop: new Stop()});
     },
     updateLocation: function(lat, lon) {
       this.get('stops').lat = lat;
       this.get('stops').lon = lon;
-      this.getStops();
+      this._fetchStops();
     },
-    getStops: function() {
+    loadStop: function(code) {
+      console.log('appModel: load stop '+code);
+      this.get('stop').set({code: code});
+      this.get('stop').fetch();
+    },
+    _fetchStops: function() {
+      console.log('appModel: fetch stops');
       this.get('stops').fetch({
-        success: _.bind(this.onStops, this),
-        error: _.bind(this.onStopsError, this),
+        success: _.bind(this._onStops, this),
+        error: _.bind(this._onStopsError, this),
         reset: true
       });
     },
-    onStops: function(collection, response, options) {
-      console.log('stops fetched', collection);
+    _onStops: function(collection, response, options) {
+      console.log('appModel: stops fetched', collection);
       if (collection.code !== null && collection.length === 1) {
-        console.log('loaded specific stop');
+        console.log('appModel loaded specific stop');
         this.set({stop: collection.models[0]});
       }
     },
-    onStopsError: function(collection, response, options) {
-      console.error('stops fetch failed');
+    _onStopsError: function(collection, response, options) {
+      console.error('appModel: stops fetch failed');
     },
-    loadStop: function(code) {
-      console.log('load stop '+code);
-      this.get('stops').lat = null;
-      this.get('stops').long = null;
-      this.get('stops').code = code;
-      this.getStops();
-    }
   });
 });

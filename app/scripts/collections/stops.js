@@ -15,8 +15,6 @@ function(Backbone, Stop) {
        && this.lat !== null
        && this.lon !== null) {
         return 'api/stop/'+this.lat+'/'+this.lon;
-      } else if (typeof this.code !== undefined && this.code !== null) {
-        return 'api/stop/'+this.code;
       }
       return null;
     },
