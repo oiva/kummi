@@ -10,12 +10,18 @@ function(Backbone, Stops, Stop) {
   return Backbone.Model.extend({
     defaults: {
       stops: null,
-      stop: null
+      stop: null,
+      coords: {}
     },
     initialize: function() {
       this.set({stops: new Stops(), stop: new Stop()});
     },
     updateLocation: function(lat, lon) {
+      if (lat === coords.lat && lon === coords.lon) {
+        return;
+      }
+
+      this.set({coords: {lat: lat, lon: lon}});
       this.get('stops').lat = lat;
       this.get('stops').lon = lon;
       this._fetchStops();
