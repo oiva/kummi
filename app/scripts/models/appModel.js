@@ -17,7 +17,7 @@ function(Backbone, Stops, Stop) {
       this.set({stops: new Stops(), stop: new Stop()});
     },
     updateLocation: function(lat, lon) {
-      if (lat === coords.lat && lon === coords.lon) {
+      if (lat === this.get('coords').lat && lon === this.get('coords').lon) {
         return;
       }
 
