@@ -8,6 +8,7 @@ define([
     template: Template,
     initialize: function() {
       console.log('stop name view: init', this.options);
+      this.listenTo(this.model, 'change:name_fi', this.render);
     },
     serializeData: function() {
       var context = this.model.toJSON();
