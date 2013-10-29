@@ -33,9 +33,8 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
       this.app.main.show(stopView);
 
       // load full stop details
-      if (this.appModel.get('stop') === null 
-        || (this.appModel.get('stop').get('code') != code
-         && this.appModel.get('stop').get('code_short') != code)) {
+      if (this.appModel.get('stop').get('code') != code
+         && this.appModel.get('stop').get('code_short') != code) {
         this.appModel.loadStop(code);
       }
 

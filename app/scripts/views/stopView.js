@@ -28,10 +28,6 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView) {
       this.code = this.options.code;
       this.model = this.options.appModel.get('stop');
       
-      if (this.model.get('code') != this.code) {
-        this.options.appModel.loadStop(this.code);
-      }
-
       this.listenTo(this.model.get('reports'), 'reset', this.onReports);
       this.listenTo(this.model.get('users'), 'reset', this.onUsers);
       this.listenTo(this.model, 'change:code', this.onChangeStop);
