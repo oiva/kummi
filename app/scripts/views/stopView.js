@@ -3,22 +3,22 @@ define([
   'hbs!tmpl/stop',
   'models/user',
   'views/reportsView',
-  'views/stopNameView'
+  'views/stopNameView',
+  'views/stop/reportLinkView'
 ],
 
-function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView) {
+function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, ReportLinkView) {
   'use strict';
 
   return Backbone.Marionette.Layout.extend({
     template: Template,
     regions: {
       name: '#name',
-      reports: '#stop-reports'
+      reports: '#stop-reports',
+      report: '#stop-report-status'
     },
 
     events: {
-      'click #report-ok': 'reportOK',
-      'click #report-problem': 'reportProblem',
       'click #adopt-stop': 'adoptStop',
       'click #adopt-send': 'adoptSend'
     },
@@ -28,11 +28,15 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView) {
       this.code = this.options.code;
       this.model = this.options.appModel.get('stop');
       
-      this.listenTo(this.model.get('reports'), 'reset', this.onReports);
-      this.listenTo(this.model.get('users'), 'reset', this.onUsers);
-      this.listenTo(this.model, 'change:code', this.onChangeStop);
+      this.listenTo(this.model.get('reports'), 'reset', this._onReports);
+      this.listenTo(this.model.get('users'), 'reset', this._onUsers);
+      this.listenTo(this.model, 'change:code', this._onChangeStop);
     },
-    onChangeStop: function(stop) {
+    onRender: function() {
+      this.name.show(new StopNameView({model: this.model}));
+      this.report.show(new ReportLinkView({model: this.model}));
+    },
+    _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
       if (stop.get('code') !== this.code && stop.get('code_short') !== this.code) {
         return;
@@ -43,29 +47,11 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView) {
       this.model.getReports();
       this.model.getUsers();
     },
-    onRender: function() {
-      var stopName = new StopNameView({model: this.model});
-      this.name.show(stopName);
-    },
-    reportOK: function() {
-      if (this.model === null) {
-        return false;
-      }
-      this.model.reportOK();
-      return false;
-    },
-    reportProblem: function() {
-      if (this.model === null) {
-        return false;
-      }
-      window.appRouter.navigate('report/'+this.model.get('code'), {trigger: true});
-      return false;
-    },
-    onReports: function(collection) {
+    _onReports: function(collection) {
       var reportsCollectionView = new ReportsCollectionView({collection: collection});
       this.reports.show(reportsCollectionView);
     },
-    onUsers: function(collection) {
+    _onUsers: function(collection) {
       var _this = this;
       console.log('users', collection);
       var users = _.uniq(collection.models, false, function(user) {
