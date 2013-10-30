@@ -13,6 +13,9 @@ function(Backbone, Template) {
     },
     findStop: function() {
       var code = this.$('#stop-id').val();
+      if (code === '') {
+        return false;
+      }
       appRouter.navigate('stop/'+code, {trigger: true});
       return false;
     }
