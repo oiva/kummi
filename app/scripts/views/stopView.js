@@ -2,12 +2,13 @@ define([
   'backbone',
   'hbs!tmpl/stop',
   'models/user',
+  'views/stop/askAdoption',
   'views/stop/reportsView',
-  'views/stop/stopNameView',
-  'views/stop/reportLinkView'
+  'views/stop/reportLinkView',
+  'views/stop/stopNameView'
 ],
 
-function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, ReportLinkView) {
+function(Backbone, Template, UserModel, AskAdoptionView, ReportsCollectionView, ReportLinkView, StopNameView) {
   'use strict';
 
   return Backbone.Marionette.Layout.extend({
@@ -15,14 +16,10 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, Rep
     regions: {
       name: '#name',
       reports: '#stop-reports-container',
-      report: '#stop-report-status'
+      report: '#stop-report-status',
+      askAdoption: '#stop-ask-adoption'
     },
 
-    events: {
-      'click #adopt-stop': 'adoptStop',
-      'click #adopt-send': 'adoptSend'
-    },
-    
     initialize: function() {
       console.log('stop view init');
       this.code = this.options.code;
@@ -35,6 +32,7 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, Rep
       this.name.show(new StopNameView({model: this.model}));
       this.report.show(new ReportLinkView({model: this.model}));
       this.reports.show(new ReportsCollectionView({collection: this.model.get('reports')}));
+      this.askAdoption.show(new AskAdoptionView({model: this.model}));
     },
     _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
