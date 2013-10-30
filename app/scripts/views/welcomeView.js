@@ -1,16 +1,18 @@
 define([
   'backbone',
-  'views/stopItemView',
+  'views/welcome/stopCollectionView',
+  'views/infoTeaserView',
   'hbs!tmpl/welcome'
 ],
 
-function(Backbone, StopItemView, Template) {
+function(Backbone, StopCollectionView, InfoTeaserView, Template) {
   'use strict';
 
-  return Backbone.Marionette.CompositeView.extend({
+  return Backbone.Marionette.Layout.extend({
     template: Template,
-    itemView: StopItemView,
-    itemViewContainer: '#stops',
+    regions: {
+      infoTeaser: '#welcome-info-teaser'
+    },
     events: {
       'click #find-stop': 'findStop'
     },
@@ -18,7 +20,9 @@ function(Backbone, StopItemView, Template) {
       console.log('init welcome view');
       Communicator.mediator.on('position:error', this.onPositionError, this);
       this.collection = this.options.appModel.get('stops');
-      console.log('this.collection', this.collection);
+    },
+    onRender: function() {
+      this.infoTeaser.show(new InfoTeaserView());
     },
     serializeData: function() {
       var context = {

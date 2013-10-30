@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'hbs!tmpl/stopItem'
+  'hbs!tmpl/welcome/stopItem'
 ],
 
 function(Backbone, Template) {
