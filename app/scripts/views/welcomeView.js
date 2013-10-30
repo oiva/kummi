@@ -1,20 +1,19 @@
 define([
   'backbone',
   'views/welcome/stopCollectionView',
+  'views/welcome/searchView',
   'views/infoTeaserView',
   'hbs!tmpl/welcome'
 ],
 
-function(Backbone, StopCollectionView, InfoTeaserView, Template) {
+function(Backbone, StopCollectionView, SearchView, InfoTeaserView, Template) {
   'use strict';
 
   return Backbone.Marionette.Layout.extend({
     template: Template,
     regions: {
-      infoTeaser: '#welcome-info-teaser'
-    },
-    events: {
-      'click #find-stop': 'findStop'
+      infoTeaser: '#welcome-info-teaser',
+      search: '#welcome-search'
     },
     initialize: function() {
       console.log('init welcome view');
@@ -23,17 +22,13 @@ function(Backbone, StopCollectionView, InfoTeaserView, Template) {
     },
     onRender: function() {
       this.infoTeaser.show(new InfoTeaserView());
+      this.search.show(new SearchView());
     },
     serializeData: function() {
       var context = {
         geoLocation: Modernizr.geolocation
       };
       return context;
-    },
-    findStop: function() {
-      var code = this.$('#stop-id').val();
-      appRouter.navigate('stop/'+code, {trigger: true});
-      return false;
     },
     onPositionError: function(errorCode) {
       console.log('welcome view: position error');
