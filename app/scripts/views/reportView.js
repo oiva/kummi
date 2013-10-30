@@ -1,15 +1,19 @@
 define([
   'backbone',
   'hbs!tmpl/report',
-  'models/report'
+  'models/report',
+  'views/stop/stopNameView'
 ],
 
-function(Backbone, Template, Report) {
+function(Backbone, Template, Report, StopNameView) {
   'use strict';
 
-  return Backbone.Marionette.ItemView.extend({
+  return Backbone.Marionette.Layout.extend({
     template: Template,
     model: null,
+    regions: {
+      stopName: '#report-stop-name'
+    },
     events: {
       'click #get-picture': 'getPicture',
       //'click #send-report': 'sendReport'
@@ -24,10 +28,14 @@ function(Backbone, Template, Report) {
       console.log('report view init: '+this.options.code);
       this.code = this.options.code;
       this.model = this.options.model;
-      
-      if (typeof this.model === undefined || this.model === null) {
-        appRouter.navigate('', {trigger: true});
-      }
+      this.listenTo(this.model, 'change:code', this.renderStopName);
+    },
+    onRender: function() {
+      this.renderStopName();
+    },
+    renderStopName: function() {
+      console.log('render stop name');
+      this.stopName.show(new StopNameView({model: this.model}));
     },
     serializeData: function() {
       var context = {};

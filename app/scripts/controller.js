@@ -53,10 +53,13 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
     },
 
     report: function(code) {
-      console.log('report problem in '+code);
-      console.log(this.appModel.get('stop'));
       var reportView = new ReportView({code: code, model: this.appModel.get('stop')});
       this.app.main.show(reportView);
+
+      if (this.appModel.get('stop').get('code') != code
+         && this.appModel.get('stop').get('code_short') != code) {
+        this.appModel.loadStop(code);
+      }
     },
 
     _updatePosition: function() {
