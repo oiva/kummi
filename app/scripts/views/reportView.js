@@ -54,13 +54,24 @@ function(Backbone, Template, Report, StopNameView) {
       return context;
     },
     getServices: function() {
-      var services = [
-        {id: '201', name: 'Vandalism'},
-        {id: '172', name: 'Sanitation violation'},
-        {id: '177', name: 'Graffiti removal'},
-        {id: '203', name: 'Info signs'},
-        {id: '207', name: 'Other issue to be fixed'}
-      ];
+      var services;
+      if (true) {
+        services = [
+          {id: '201', name: 'Ilkivalta'},
+          {id: '172', name: 'Roskaaminen'},
+          {id: '177', name: 'Töhryjen poisto'},
+          {id: '203', name: 'Kyltit ja opasteet'},
+          {id: '207', name: 'Muu korjattava asia'}
+        ];
+      } else {
+        services = [
+          {id: '172', name: 'Ilkivalta'},
+          {id: '246', name: 'Roskaaminen'},
+          {id: '176', name: 'Töhryjen poisto'},
+          {id: '199', name: 'Kyltit ja opasteet'},
+          {id: '180', name: 'Muu korjattava asia'}
+        ];
+      }
       return services;
     },
     getPicture: function(event) {
