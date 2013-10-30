@@ -4,7 +4,7 @@ require([
 	'regionManager'
 ],
 function ( Backbone, App ) {
-    'use strict';
+  'use strict';
 
 	App.start();
 });

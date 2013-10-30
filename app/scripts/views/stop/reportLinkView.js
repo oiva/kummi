@@ -2,6 +2,8 @@ define([
   'backbone',
   'hbs!tmpl/stop/reportLink'
 ], function(Backbone, Template) {
+  'use strict';
+  
   return Backbone.Marionette.ItemView.extend({
     template: Template,
     events: {
