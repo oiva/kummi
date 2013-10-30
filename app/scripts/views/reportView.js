@@ -102,12 +102,19 @@ function(Backbone, Template, Report, StopNameView) {
       var description = this.ui.description.val();
       var service_code = this.$('input[name=service-code]:checked').val();
       var code = this.model.get('code');
+      var firstname = this.$('#firstname').val()
+      var lastname = this.$('#lastname').val()
+      var email = this.$('#email').val()
 
       report.set({
         description: description,
         service_code: ""+service_code,
-        code: ""+code
+        code: ""+code,
+        first_name: firstname,
+        last_name: lastname,
+        email: email
       });
+      
       console.log('report', report);
       
       if (typeof this.model.get('wgs_coords') !== undefined 
@@ -123,8 +130,9 @@ function(Backbone, Template, Report, StopNameView) {
       return false;
     },
     fakeResult: function() {
-      this.$('#report-form').hide();
-      this.$('#report-sent').show();
+      //todo: go to thank you page
+      //this.$('#report-form').hide();
+      //this.$('#report-sent').show();
     },
     goBack: function() {
       appRouter.navigate('', {trigger: true});

@@ -20,7 +20,10 @@ exports.post = function(req, res){
     'service_code' : req.body.service_code,
     'lat': req.body.lat,
     'long': req.body.lon,
-    'description': req.body.description
+    'description': req.body.description,
+    'email': req.body.email,
+    'first_name': req.body.first_name,
+    'last_name': req.body.last_name
   };
   console.log(data);
 
