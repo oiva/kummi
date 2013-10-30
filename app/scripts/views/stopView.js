@@ -2,13 +2,14 @@ define([
   'backbone',
   'hbs!tmpl/stop',
   'models/user',
+  'views/infoTeaserView',
   'views/stop/askAdoption',
   'views/stop/reportsView',
   'views/stop/reportLinkView',
   'views/stop/stopNameView'
 ],
 
-function(Backbone, Template, UserModel, AskAdoptionView, ReportsCollectionView, ReportLinkView, StopNameView) {
+function(Backbone, Template, UserModel, InfoTeaserView, AskAdoptionView, ReportsCollectionView, ReportLinkView, StopNameView) {
   'use strict';
 
   return Backbone.Marionette.Layout.extend({
@@ -17,7 +18,8 @@ function(Backbone, Template, UserModel, AskAdoptionView, ReportsCollectionView, 
       name: '#name',
       reports: '#stop-reports-container',
       report: '#stop-report-status',
-      askAdoption: '#stop-ask-adoption'
+      askAdoption: '#stop-ask-adoption',
+      infoTeaser: '#stop-info-teaser'
     },
 
     initialize: function() {
@@ -33,6 +35,7 @@ function(Backbone, Template, UserModel, AskAdoptionView, ReportsCollectionView, 
       this.report.show(new ReportLinkView({model: this.model}));
       this.reports.show(new ReportsCollectionView({collection: this.model.get('reports')}));
       this.askAdoption.show(new AskAdoptionView({model: this.model}));
+      this.infoTeaser.show(new InfoTeaserView());
     },
     _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
