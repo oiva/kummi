@@ -14,7 +14,7 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, Rep
     template: Template,
     regions: {
       name: '#name',
-      reports: '#stop-reports',
+      reports: '#stop-reports-container',
       report: '#stop-report-status'
     },
 
@@ -28,13 +28,13 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, Rep
       this.code = this.options.code;
       this.model = this.options.appModel.get('stop');
       
-      this.listenTo(this.model.get('reports'), 'reset', this._onReports);
       this.listenTo(this.model.get('users'), 'reset', this._onUsers);
       this.listenTo(this.model, 'change:code', this._onChangeStop);
     },
     onRender: function() {
       this.name.show(new StopNameView({model: this.model}));
       this.report.show(new ReportLinkView({model: this.model}));
+      this.reports.show(new ReportsCollectionView({collection: this.model.get('reports')}));
     },
     _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
@@ -46,10 +46,6 @@ function(Backbone, Template, UserModel, ReportsCollectionView, StopNameView, Rep
       
       this.model.getReports();
       this.model.getUsers();
-    },
-    _onReports: function(collection) {
-      var reportsCollectionView = new ReportsCollectionView({collection: collection});
-      this.reports.show(reportsCollectionView);
     },
     _onUsers: function(collection) {
       var _this = this;
