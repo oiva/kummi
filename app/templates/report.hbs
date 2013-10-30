@@ -1,29 +1,32 @@
 <div id="report-stop-name"></div>
 
 <form role="form" id="report-form">
-  <div class="form-group">
-  
-    <label for="service_code_201">Ongelma</label>
-    {{#each services}}
-    <div class="radio">
-      <label>
-        <input type="radio" name="service-code" id="service_code_{{id}}" value="{{id}}" />
-        {{name}}
-      </label>
+  <fieldset>
+    <p>Valitse vaihtoehdoista sopivin ja kuvaile ongelmaa muutamalla sanalla.</p>
+    <div class="form-group">
+      <label for="service_code_201">Ongelma</label>
+      {{#each services}}
+      <div class="radio">
+        <label>
+          <input type="radio" name="service-code" id="service_code_{{id}}" value="{{id}}" />
+          {{name}}
+        </label>
+      </div>
+      {{/each}}
     </div>
-    {{/each}}
-  </div>
 
-  <div class="form-group">
-    <label for="description">Kerro ongelmasta</label>
-    <textarea name="description" id="description" class="form-control" rows="3"></textarea>
-  </div>
+    <div class="form-group">
+      <label for="description">Mikä on pielessä?</label>
+      <textarea name="description" id="description" class="form-control" rows="3"></textarea>
+      <span class="help-block" id="char-count"></span>
+    </div>
 
-  <div class="form-group">
-    <label for="image-picker">Ota kuva</label>
-    <input id="image-picker" type="file" accept="image/*" />
-  </div>
-  <button id="send-report" type="submit" class="btn btn-default">Lähetä</button>
+    <div class="form-group hidden">
+      <label for="image-picker">Ota kuva</label>
+      <input id="image-picker" type="file" accept="image/*" />
+    </div>
+    <button id="send-report" type="submit" class="btn btn-default" disabled="disabled">Lähetä</button>
+  </fieldset>
 </form>
 <div id="report-sent" style="display: none">
   <p class="text-success">Viestisi on lähetetty!</p>

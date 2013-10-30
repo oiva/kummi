@@ -18,12 +18,14 @@ function(Backbone, Template, Report, StopNameView) {
       'click #get-picture': 'getPicture',
       //'click #send-report': 'sendReport'
       'submit #report-form': 'sendReport',
+      'keyup #description': 'updateCharCount',
       'click #report-back': 'goBack'
     },
     ui: {
-      'description': '#description'
+      'description': '#description',
+      'charCount': '#char-count',
+      'sendReport': '#send-report'
     },
-    
     initialize: function() {
       console.log('report view init: '+this.options.code);
       this.code = this.options.code;
@@ -76,6 +78,22 @@ function(Backbone, Template, Report, StopNameView) {
     },
     getPicture: function(event) {
       console.log('getPicture');
+    },
+    updateCharCount: function() {
+      var chars = this.ui.description.val().length;
+      if (chars < 9) {
+        this.ui.charCount.text('Syötä vielä '+(10-chars)+' merkkiä');
+      } else if (chars == 9) {
+        this.ui.charCount.text('Syötä vielä 1 merkki');
+      }
+
+      if (chars < 10) {
+        this.ui.charCount.removeClass('hidden');
+        this.ui.sendReport.attr('disabled', true);
+      } else {
+        this.ui.charCount.addClass('hidden');
+        this.ui.sendReport.removeAttr('disabled');
+      }
     },
     sendReport: function(event) {
       console.log('sendReport');
