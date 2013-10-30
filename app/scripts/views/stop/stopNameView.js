@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'hbs!tmpl/stopName'
+  'hbs!tmpl/stop/stopName'
 ], function(Backbone, Template) {
   'use strict';
 

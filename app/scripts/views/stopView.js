@@ -3,7 +3,7 @@ define([
   'hbs!tmpl/stop',
   'models/user',
   'views/reportsView',
-  'views/stopNameView',
+  'views/stop/stopNameView',
   'views/stop/reportLinkView'
 ],
 
