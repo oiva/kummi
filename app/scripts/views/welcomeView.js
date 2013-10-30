@@ -1,18 +1,19 @@
 define([
   'backbone',
-  'views/welcome/stopCollectionView',
+  'views/welcome/nearbyView',
   'views/welcome/searchView',
   'views/infoTeaserView',
   'hbs!tmpl/welcome'
 ],
 
-function(Backbone, StopCollectionView, SearchView, InfoTeaserView, Template) {
+function(Backbone, NearbyView, SearchView, InfoTeaserView, Template) {
   'use strict';
 
   return Backbone.Marionette.Layout.extend({
     template: Template,
     regions: {
       infoTeaser: '#welcome-info-teaser',
+      nearby: '#welcome-nearby',
       search: '#welcome-search'
     },
     initialize: function() {
@@ -23,6 +24,7 @@ function(Backbone, StopCollectionView, SearchView, InfoTeaserView, Template) {
     onRender: function() {
       this.infoTeaser.show(new InfoTeaserView());
       this.search.show(new SearchView());
+      this.nearby.show(new NearbyView({collection: this.collection}));
     },
     serializeData: function() {
       var context = {
@@ -32,10 +34,7 @@ function(Backbone, StopCollectionView, SearchView, InfoTeaserView, Template) {
     },
     onPositionError: function(errorCode) {
       console.log('welcome view: position error');
-      this.$('#position').hide();
-    },
-    onCompositeCollectionRendered: function() {
-      this.$('#loading-stops').hide();
+      this.$('#welcome-nearby').hide();
     }
   });
 });
