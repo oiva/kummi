@@ -1,7 +1,7 @@
 define([
   'backbone',
   'collections/reports',
-  'views/reportItemView'
+  'views/stop/reportItemView'
 ],
 
 function(Backbone, Reports, ReportItemView) {

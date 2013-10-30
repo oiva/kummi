@@ -1,6 +1,6 @@
 define([
   'backbone',
-  'hbs!tmpl/reportItem'
+  'hbs!tmpl/stop/reportItem'
 ],
 
 function(Backbone, Template) {
@@ -8,9 +8,6 @@ function(Backbone, Template) {
   
   return Backbone.Marionette.ItemView.extend({
     template: Template,
-    tagName: 'li',
-    initialize: function() {
-      console.log('report item view init');
-    }
+    tagName: 'li'
   });
 });

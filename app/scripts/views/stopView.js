@@ -2,7 +2,7 @@ define([
   'backbone',
   'hbs!tmpl/stop',
   'models/user',
-  'views/reportsView',
+  'views/stop/reportsView',
   'views/stop/stopNameView',
   'views/stop/reportLinkView'
 ],
