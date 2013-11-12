@@ -9,7 +9,7 @@ var reportSchema = new Schema({
     description: String,
     service_code: String,
     lat: String,
-    lon: String,
+    long: String,
     code: String // stop code
 });
  
