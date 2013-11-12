@@ -1,13 +1,20 @@
 var Open311 = require('open311');
+var Q = require('q');
 var config = require('../config');
 var Report = require('../models/report');
 
 var saveReport = function(data) {
+  var deferred = Q.defer();
   var report = new Report(data).save(function(err, doc) {
+    if (err) {
+      deferred.reject(err);
+    } else {
+      deferred.resolve(doc);
+    }
     console.log('error',err);
     console.log('doc', doc);
   });
-  return report;
+  return deferred.promise;
 };
 
 exports.post = function(req, res){
