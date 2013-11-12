@@ -126,19 +126,21 @@ function(Backbone, Template, Report, StopNameView) {
       } else {
         console.warn('coords not found', this.model);
       }
-      report.save();
-
-      this.fakeResult();
+      report.save({}, {error: _.bind(this.onSaveError, this)});
+      this.onSaveSuccess();
       event.preventDefault();
       return false;
     },
-    fakeResult: function() {
-      //todo: go to thank you page
-      //this.$('#report-form').hide();
-      //this.$('#report-sent').show();
+    onSaveError: function(model, jqXHR, options) {
+      this.$('#report-sent').addClass('hidden');
+      this.$('#report-error').removeClass('hidden');
+    },
+    onSaveSuccess: function() {
+      this.$('#report-form').addClass('hidden');
+      this.$('#report-sent').removeClass('hidden');
     },
     goBack: function() {
-      appRouter.navigate('', {trigger: true});
+      appRouter.navigate('stop/'+this.model.get('code'), {trigger: true});
       return false;
     }
   });
