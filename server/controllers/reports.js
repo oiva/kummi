@@ -33,22 +33,22 @@ exports.post = function(req, res){
     'last_name': req.body.last_name
   };
   console.log(data);
-
+  
   helsinki.submitRequest(data, function(err, response) {
     console.log('err', err);
-    console.log('response', response);
+    console.log('response', response[0]);
 
     if (err !== null) {
       if (response.indexOf(';') !== -1) {
-        response = response.substring(response.indexOf(';'));
+        response = response.substring(response.indexOf(';') + 2);
       }
-      res.write('{"error": "'+response+'"}');
+      res.write('{"error": '+response+'}');
       res.end();
       return;
     }
 
-    data.service_request_id = response.service_request_id;
-    data.code = req.body.code;
+    data.service_request_id = response[0].service_request_id;
+    
     saveReport(data)
       .then(function(report) {
         res.write(report);
