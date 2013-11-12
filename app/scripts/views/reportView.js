@@ -115,11 +115,14 @@ function(Backbone, Template, Report, StopNameView) {
         email: email
       });
       
-      console.log('report', report);
-      
-      if (typeof this.model.get('wgs_coords') !== undefined 
-        && this.model.get('wgs_coords') !== null) {
-        report.setCoords(this.model.get('wgs_coords'));
+      if (this.model.get('wgs_coords') !== undefined 
+       && this.model.get('wgs_coords') !== null) {
+        console.log('setWgsCoords '+this.model.get('wgs_coords'));
+        report.setWgsCoords(this.model.get('wgs_coords'));
+      } else if (this.model.get('coords') !== undefined
+              && this.model.get('coords') !== null) {
+        console.log('setXYCoords '+this.model.get('coords'));
+        report.setCoords(this.model.get('coords'));
       } else {
         console.warn('coords not found', this.model);
       }
