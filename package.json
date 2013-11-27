@@ -9,7 +9,8 @@
     "express-hbs": "~0.5.1",
     "underscore": "~1.5.2",
     "mongoose": "~3.8.1",
-    "open311": "git://github.com/oiva/node-open311"
+    "open311": "git://github.com/oiva/node-open311",
+    "q": "~0.9.7"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
