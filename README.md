@@ -18,15 +18,16 @@ Setup config.js:
 Enter your credentials to `server/config.js`. You'll need:
 * Open311 API key: http://dev.hel.fi/apis/issuereporting
 * Reittiopas API key: http://developer.reittiopas.fi/pages/en/account-request.php
-* A mongoDB database (probably to be switched later)
+* A mongoDB database (not a final decision :) )
 
-On OS X mongoDB can be installed with homebrew: `brew install mongodb`
+On OS X mongoDB can be installed with [Homebrew](http://brew.sh/): `brew install mongodb`
 To create a databse called "kummi" and a user:
 
     db
     use kummi
     db.addUser({user: "kummi", pwd: "kummi", roles: ["readWrite"]})
+    exit
 
 ### Development
 
-Run `grunt`
+Run `grunt`.
