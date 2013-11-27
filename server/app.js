@@ -5,8 +5,6 @@ var http = require('http');
 var path = require('path');
 var async = require('async');
 var hbs = require('express-hbs');
-var baucis = require('baucis');
-var http = require('http');
 var mongoose = require('mongoose');
 
 var config = require('./config');
