@@ -26,7 +26,8 @@ function(Backbone, Template, Report, StopNameView) {
       'charCount': '#char-count',
       'sendReport': '#send-report'
     },
-    initialize: function() {
+    initialize: function(options) {
+      this.options = options;
       console.log('report view init: '+this.options.code);
       this.code = this.options.code;
       this.model = this.options.model;

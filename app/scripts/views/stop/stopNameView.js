@@ -10,7 +10,8 @@ define([
       console.log('stop name view: init', this.options);
       this.listenTo(this.model, 'change:name_fi', this.render);
     },
-    serializeData: function() {
+    serializeData: function(options) {
+      this.options = options;
       var context = this.model.toJSON();
       if (context.name === undefined && context.name_fi !== null) {
         context.name = context.name_fi;

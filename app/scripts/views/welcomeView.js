@@ -16,7 +16,8 @@ function(Backbone, NearbyView, SearchView, InfoTeaserView, Template) {
       nearby: '#welcome-nearby',
       search: '#welcome-search'
     },
-    initialize: function() {
+    initialize: function(options) {
+      this.options = options;
       console.log('init welcome view');
       Communicator.mediator.on('position:error', this.onPositionError, this);
       this.collection = this.options.appModel.get('stops');

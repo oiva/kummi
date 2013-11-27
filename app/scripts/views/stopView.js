@@ -22,7 +22,8 @@ function(Backbone, Template, UserModel, InfoTeaserView, AskAdoptionView, Reports
       infoTeaser: '#stop-info-teaser'
     },
 
-    initialize: function() {
+    initialize: function(options) {
+      this.options = options;
       console.log('stop view init');
       this.code = this.options.code;
       this.model = this.options.appModel.get('stop');
