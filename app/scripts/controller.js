@@ -81,9 +81,10 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
       this.appModel.updateLocation(lat, lon);
     },
 
-    _onPositionError: function(error) {
+    _onPositionError: function(error, msg) {
       Communicator.mediator.trigger('position:error', error.code);
       console.log('position error: '+error.code);
+      console.log(msg);
     }
   });
   return controller;
