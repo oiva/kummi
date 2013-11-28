@@ -7,10 +7,7 @@ require.config({
 
 
     shim: {
-        handlebars: {
-            exports: 'Handlebars'
-        },
-
+        
         backbone: {
             deps: [
                 'underscore',
