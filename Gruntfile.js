@@ -14,6 +14,8 @@ var mountFolder = function (connect, dir) {
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
+    // show elapsed time at the end
+    require('time-grunt')(grunt);
 
     // configurable paths
     var yeomanConfig = {
@@ -115,7 +117,8 @@ module.exports = function (grunt) {
         // linting
         jshint: {
             options: {
-                jshintrc: '.jshintrc'
+                jshintrc: '.jshintrc',
+                reporter: require('jshint-stylish')
             },
             all: [
                 'Gruntfile.js',
@@ -133,7 +136,7 @@ module.exports = function (grunt) {
                 cssDir: '.tmp/styles',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
-                //fontsDir: '<%= yeoman.app %>/styles/fonts',
+                fontsDir: '<%= yeoman.app %>/styles/fonts',
                 importPath: 'app/y',
                 relativeAssets: true
             },
