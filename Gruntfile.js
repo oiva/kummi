@@ -151,21 +151,19 @@ module.exports = function (grunt) {
 
         // require
         requirejs: {
-            dist: {
-                // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
+            build: {
                 options: {
-                    // `name` and `out` is set by grunt-usemin
+                    almond: true,
+                    name: 'init',
                     baseUrl: 'app/scripts',
-                    optimize: 'none',
+                    include: "../lib/almond-0.2.7",
+                    mainConfigFile: 'app/scripts/init.js',
+                    optimize: 'uglify2',
                     paths: {
                         'templates': '../../.tmp/scripts/templates'
                     },
-                    // TODO: Figure out how to make sourcemaps work with grunt-usemin
-                    // https://github.com/yeoman/grunt-usemin/issues/30
-                    //generateSourceMaps: true,
-                    // required to support SourceMaps
-                    // http://requirejs.org/docs/errors.html#sourcemapcomments
-                    preserveLicenseComments: false,
+                    preserveLicenseComments: true,
+                    out: '<%= yeoman.dist %>/scripts/init-built.js',
                     useStrict: true,
                     wrap: true,
                     //uglify2: {} // https://github.com/mishoo/UglifyJS2
@@ -177,7 +175,12 @@ module.exports = function (grunt) {
                         excludeHbs: true,
                         // removes i18n precompiler, handlebars and json2
                         excludeAfterBuild: true
-                    }
+                    },
+                    replaceRequireScript: [{
+                        files: ['<%= yeoman.dist %>/index.html'],
+                        module: 'init',
+                        modulePath: '<%= yeoman.dist %>/scripts/init-built'
+                    }],
                 }
             }
         },
@@ -251,8 +254,7 @@ module.exports = function (grunt) {
                     src: [
                         '*.{ico,txt}',
                         '.htaccess',
-                        'images/{,*/}*.{webp,gif}',
-                        'y/requirejs/require.js'
+                        'images/{,*/}*.{webp,gif}'                        
                     ]
                 }]
             }
@@ -293,6 +295,7 @@ module.exports = function (grunt) {
         grunt.option('force', true);
 
         grunt.task.run([
+            'jshint',
             'clean:server',
             'compass:server',
             'connect:testserver',
