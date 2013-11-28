@@ -29,16 +29,22 @@
     "grunt-contrib-livereload": "0.1.2",
     "grunt-mocha": "~0.4.6",
     "grunt-bower-requirejs": "~0.7.1",
-    "grunt-usemin": "~2.0.2",
+    "grunt-usemin": "~0.1.10",
     "grunt-requirejs": "~0.4.0",
     "grunt-open": "~0.2.2",
     "grunt-express-server": "~0.4.5",
     "matchdep": "~0.3.0",
     "mocha-phantomjs": "~3.1.6",
+    "jshint-stylish": "~0.1.3",
     "grunt-exec": "~0.4.2",
-    "grunt-contrib-watch": "~0.5.3"
+    "grunt-contrib-watch": "~0.5.3",
+    "time-grunt": "~0.1.1"
   },
   "engines": {
     "node": ">=0.10.3"
+  },
+  "subdomain": "kummi",
+  "scripts": {
+    "start": "node server/app.js"
   }
 }
