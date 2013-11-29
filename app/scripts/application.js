@@ -12,6 +12,7 @@ function( Backbone, Communicator, AppController, AppRouter) {
 
 	/* Add application regions here */
 	App.addRegions({
+		'header': '#header',
 		'main': '#main'
 	});
 
