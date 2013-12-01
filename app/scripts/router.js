@@ -10,7 +10,8 @@ function (Backbone) {
     appRoutes: {
       '': 'welcome',
       'stop/:code': 'stop',
-      'report/:code': 'report'
+      'report/:code': 'report',
+      'adopt/:code': 'adopt'
     }
   });
   return router;

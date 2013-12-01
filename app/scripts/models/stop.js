@@ -38,7 +38,7 @@ function(Backbone, ReportsCollection, UsersCollection) {
       var users = new UsersCollection({code: this.get('code')});
       this.set({reports: reports, users: users});
 
-      this.listenTo(this, 'change:code', _.bind(this.onCodeChange, this)); 
+      this.listenTo(this, 'change:code', _.bind(this.onCodeChange, this));
     },
     onCodeChange: function(model, code) {
       console.log('stop code changed to '+code);

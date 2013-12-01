@@ -13,7 +13,8 @@ define([
       this.listenTo(this.model, 'change:code', this.render);
     },
     adoptStop: function() {
-      console.log('adopt stop');
+      appRouter.navigate('adopt/'+this.model.get('code'), {trigger: true});
+      return false;
     },
     serializeData: function() {
       var context = this.model.toJSON();

@@ -1,12 +1,13 @@
 define([
   'backbone',
   'models/appModel',
+  'views/adopt/adoptView',
   'views/welcomeView',
   'views/stopView',
   'views/reportView'
 ],
 
-function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
+function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
   'use strict';
 
   var controller = Backbone.Marionette.Controller.extend({
@@ -53,6 +54,15 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
          && this.appModel.get('stop').get('code_short') != code) {
         this.appModel.loadStop(code);
       }
+    },
+
+    adopt: function(code) {
+      if (this.appModel.get('stop').get('code') === null) {
+        appRouter.navigate('', {trigger: true});
+        return;
+      }
+      var adoptView = new AdoptView({code: code, model: this.appModel.get('stop')});
+      this.app.main.show(adoptView);
     },
 
     _stopWithLongCode: function(code) {
