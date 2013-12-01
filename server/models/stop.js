@@ -1,6 +1,8 @@
-var mongoose = require('mongoose')
+var findOrCreate = require('mongoose-findorcreate')
+   ,mongoose = require('mongoose')
    ,Schema = mongoose.Schema
    ,ObjectId = Schema.ObjectId;
+
  
 var stopSchema = new Schema({
   id: ObjectId,
@@ -23,5 +25,7 @@ stopSchema.set('toJSON', {
     return ret;
   }
 });
+
+stopSchema.plugin(findOrCreate);
  
 module.exports = mongoose.model('Stop', stopSchema);

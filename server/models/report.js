@@ -10,10 +10,10 @@ var reportSchema = new Schema({
     service_code: String,
     lat: String,
     long: String,
-    code: String, // stop code
     first_name: String,
     last_name: String,
-    email: String
+    email: String,
+    stop: ObjectId // referenced stop
 });
  
 module.exports = mongoose.model('Report', reportSchema);
