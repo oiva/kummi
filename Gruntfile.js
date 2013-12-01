@@ -319,11 +319,11 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'createDefaultTemplate',
         'handlebars',
+        'htmlmin',
         'compass:dist',
         'useminPrepare',
         'requirejs',
         'imagemin',
-        'htmlmin',
         'concat',
         'cssmin',
         'uglify',
