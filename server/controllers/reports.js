@@ -77,8 +77,11 @@ exports.post = function(req, res){
 };
 
 exports.list = function(req, res) {
-  Report.find({code: req.params.code}, function(err, reports) {
-    res.send(reports);
+  console.log('list reports on '+req.params.code);
+  Stop.find({code: req.params.code}, function(err, stop) {
+    Report.find({stop: stop._id}, function(err, reports) {
+      res.send(reports);
+    });
   });
 }
 
