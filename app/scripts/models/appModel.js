@@ -26,9 +26,9 @@ function(Backbone, Stops, Stop) {
       this.get('stops').lon = lon;
       this._fetchStops();
     },
-    loadStop: function(code) {
-      console.log('appModel: load stop '+code);
-      this.get('stop').set({code: code});
+    loadStop: function(options) {
+      console.log('appModel: load stop ',options);
+      this.get('stop').set(options);
       this.get('stop').fetch();
     },
     _fetchStops: function() {

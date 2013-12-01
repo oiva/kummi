@@ -29,27 +29,20 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
     },
 
     stop: function(code) {
-      var stopView = new StopView({code: code, appModel: this.appModel});
+      var options = {
+        appModel: this.appModel
+      };
+
+      if (code.length <= 6) {
+        options.code_short = code;
+        this._stopWithShortCode(code);
+      } else {
+        options.code = code;
+        this._stopWithLongCode(code);
+      }
+
+      var stopView = new StopView(options);
       this.app.main.show(stopView);
-
-      // load full stop details
-      if (this.appModel.get('stop').get('code') != code
-         && this.appModel.get('stop').get('code_short') != code) {
-        this.appModel.loadStop(code);
-      }
-
-      // check if stop exists in collection
-      var matchingStops = this.appModel.get('stops').where({code: code});
-      var matchingShortCode = this.appModel.get('stops').where({code_short: code});
-
-      if (matchingStops.length > 0) {
-        this.appModel.set({stop: matchingStops[0]});
-        return;
-      }
-      if (matchingShortCode.length > 0) {
-        this.appModel.set({stop: matchingShortCode[0]});
-        return;
-      }
     },
 
     report: function(code) {
@@ -59,6 +52,30 @@ function(Backbone, AppModel, WelcomeView, StopView, ReportView) {
       if (this.appModel.get('stop').get('code') != code
          && this.appModel.get('stop').get('code_short') != code) {
         this.appModel.loadStop(code);
+      }
+    },
+
+    _stopWithLongCode: function(code) {
+      if (this.appModel.get('stop').get('code') != code) {
+        this.appModel.loadStop({code: code});
+      }
+
+      // check if stop exists in collection
+      var matchingStops = this.appModel.get('stops').where({code: code});
+      if (matchingStops.length > 0) {
+        this.appModel.set({stop: matchingStops[0]});
+        return;
+      }
+    },
+
+    _stopWithShortCode: function(code_short) {
+      if (this.appModel.get('stop').get('code_short') != code_short) {
+        this.appModel.loadStop({code_short: code_short});
+      }
+      var matchingShortCode = this.appModel.get('stops').where({code_short: code_short});
+      if (matchingShortCode.length > 0) {
+        this.appModel.set({stop: matchingShortCode[0]});
+        return;
       }
     },
 

@@ -37,8 +37,15 @@ exports.list = function(req, res) {
 }
 
 exports.show = function(req, res) {
-  var code = req.params.code;
-  Stop.findOne({code: code}, function(error, stop) {
+  var code = req.params.code
+    , options;
+
+  if (code.length <= 6) {
+    options = {code_short: code};
+  } else {
+    options = {code: code};
+  }
+  Stop.findOne(options, function(error, stop) {
     if (error) {
       console.log(error);
     }

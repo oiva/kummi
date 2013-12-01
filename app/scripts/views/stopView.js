@@ -26,10 +26,12 @@ function(Backbone, Template, UserModel, InfoTeaserView, AskAdoptionView, Reports
       this.options = options;
       console.log('stop view init');
       this.code = this.options.code;
+      this.code_short = this.options.code_short;
       this.model = this.options.appModel.get('stop');
       
       this.listenTo(this.model.get('users'), 'reset', this._onUsers);
       this.listenTo(this.model, 'change:code', this._onChangeStop);
+      this.listenTo(this.model, 'change:code_short', this._onChangeStop);
     },
     onRender: function() {
       this.name.show(new StopNameView({model: this.model}));
@@ -40,7 +42,8 @@ function(Backbone, Template, UserModel, InfoTeaserView, AskAdoptionView, Reports
     },
     _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
-      if (stop.get('code') !== this.code && stop.get('code_short') !== this.code) {
+      if ((stop.get('code') !== this.code || this.code === null)
+        && (stop.get('code_short') !== this.code_short || this.code_short === null)) {
         return;
       }
       this.model = stop;
