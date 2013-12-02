@@ -52,7 +52,7 @@ function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
 
       if (this.appModel.get('stop').get('code') !== code &&
         this.appModel.get('stop').get('code_short') !== code) {
-        this.appModel.loadStop(code);
+        this.appModel.loadStop({code: code});
       }
     },
 
