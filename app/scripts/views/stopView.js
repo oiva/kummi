@@ -42,8 +42,8 @@ function(Backbone, Template, UserModel, InfoTeaserView, AskAdoptionView, Reports
     },
     _onChangeStop: function(stop) {
       console.log('stopView: stop '+stop.get('code')+' loaded', stop);
-      if ((stop.get('code') !== this.code || this.code === null)
-        && (stop.get('code_short') !== this.code_short || this.code_short === null)) {
+      if ((stop.get('code') !== this.code || this.code === null) &&
+        (stop.get('code_short') !== this.code_short || this.code_short === null)) {
         return;
       }
       this.model = stop;

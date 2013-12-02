@@ -10,10 +10,10 @@ function(Backbone, Stop) {
     model: Stop,
     initialize: function() {},
     url: function() {
-      if (typeof this.lat !== undefined 
-       && typeof this.lon !== undefined
-       && this.lat !== null
-       && this.lon !== null) {
+      if (typeof this.lat !== undefined &&
+        typeof this.lon !== undefined &&
+        this.lat !== null &&
+        this.lon !== null) {
         return 'api/stop/'+this.lat+'/'+this.lon;
       }
       return null;

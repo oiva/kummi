@@ -3,7 +3,7 @@
     "browser": true,
     "esnext": true,
     "bitwise": true,
-    "camelcase": true,
+    "camelcase": false,
     "curly": true,
     "eqeqeq": true,
     "immed": true,
@@ -20,7 +20,12 @@
     "smarttabs": true,
     "globals": {
         "_": true,
+        "appRouter": true,
+        "Communicator": true,
         "define": true,
+        "describe": true,
+        "expect": true,
+        "it": true,
         "Modernizr": true
     }
 }

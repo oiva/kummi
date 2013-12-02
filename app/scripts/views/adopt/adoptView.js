@@ -17,7 +17,7 @@ define([
     },
     initialize: function(options) {
       console.log('init adopt view', options);
-      this.options = options;      
+      this.options = options;
     },
     serializeData: function() {
       var context = {};

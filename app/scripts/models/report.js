@@ -29,7 +29,7 @@ function(Backbone) {
         return;
       }
       for (var i=0; i<2; i++) {
-        var coord = (coords[i]+"").substring(0, 7);
+        var coord = (coords[i]+'').substring(0, 7);
         coord = parseInt(coord, 10);
         coords[i] = coord * 0.00001;
       }

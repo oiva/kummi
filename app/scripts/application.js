@@ -19,7 +19,7 @@ function( Backbone, Communicator, AppController, AppRouter) {
 	/* Add initializers here */
 	App.addInitializer( function () {
 		window.Communicator = Communicator;
-		Communicator.mediator.trigger("APP:START");
+		Communicator.mediator.trigger('APP:START');
 
 		var appController = new AppController({app: this});
 		var appRouter = new AppRouter({controller: appController});

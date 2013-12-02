@@ -3,6 +3,8 @@ define([
 ],
 
 function (Backbone) {
+  'use strict';
+  
   var router = Backbone.Marionette.AppRouter.extend({
     initialize: function() {
       console.log('router init');

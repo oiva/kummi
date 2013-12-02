@@ -77,14 +77,14 @@ function(Backbone, Template, Report, StopNameView) {
       }
       return services;
     },
-    getPicture: function(event) {
+    getPicture: function() {
       console.log('getPicture');
     },
     updateCharCount: function() {
       var chars = this.ui.description.val().length;
       if (chars < 9) {
         this.ui.charCount.text('Syötä vielä '+(10-chars)+' merkkiä');
-      } else if (chars == 9) {
+      } else if (chars === 9) {
         this.ui.charCount.text('Syötä vielä 1 merkki');
       }
 
@@ -103,25 +103,25 @@ function(Backbone, Template, Report, StopNameView) {
       var description = this.ui.description.val();
       var service_code = this.$('input[name=service-code]:checked').val();
       var code = this.model.get('code');
-      var firstname = this.$('#firstname').val()
-      var lastname = this.$('#lastname').val()
-      var email = this.$('#email').val()
+      var firstname = this.$('#firstname').val();
+      var lastname = this.$('#lastname').val();
+      var email = this.$('#email').val();
 
       report.set({
         description: description,
-        service_code: ""+service_code,
-        code: ""+code,
+        service_code: ''+service_code,
+        code: ''+code,
         first_name: firstname,
         last_name: lastname,
         email: email
       });
       
-      if (this.model.get('wgs_coords') !== undefined 
-       && this.model.get('wgs_coords') !== null) {
+      if (this.model.get('wgs_coords') !== undefined &&
+        this.model.get('wgs_coords') !== null) {
         console.log('setWgsCoords '+this.model.get('wgs_coords'));
         report.setWgsCoords(this.model.get('wgs_coords'));
-      } else if (this.model.get('coords') !== undefined
-              && this.model.get('coords') !== null) {
+      } else if (this.model.get('coords') !== undefined &&
+        this.model.get('coords') !== null) {
         console.log('setXYCoords '+this.model.get('coords'));
         report.setCoords(this.model.get('coords'));
       } else {
@@ -132,7 +132,7 @@ function(Backbone, Template, Report, StopNameView) {
       event.preventDefault();
       return false;
     },
-    onSaveError: function(model, jqXHR, options) {
+    onSaveError: function() {
       this.$('#report-sent').addClass('hidden');
       this.$('#report-error').removeClass('hidden');
     },

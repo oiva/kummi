@@ -50,8 +50,8 @@ function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
       var reportView = new ReportView({code: code, model: this.appModel.get('stop')});
       this.app.main.show(reportView);
 
-      if (this.appModel.get('stop').get('code') != code
-         && this.appModel.get('stop').get('code_short') != code) {
+      if (this.appModel.get('stop').get('code') !== code &&
+        this.appModel.get('stop').get('code_short') !== code) {
         this.appModel.loadStop(code);
       }
     },
@@ -66,7 +66,7 @@ function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
     },
 
     _stopWithLongCode: function(code) {
-      if (this.appModel.get('stop').get('code') != code) {
+      if (this.appModel.get('stop').get('code') !== code) {
         this.appModel.loadStop({code: code});
       }
 
@@ -79,7 +79,7 @@ function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
     },
 
     _stopWithShortCode: function(code_short) {
-      if (this.appModel.get('stop').get('code_short') != code_short) {
+      if (this.appModel.get('stop').get('code_short') !== code_short) {
         this.appModel.loadStop({code_short: code_short});
       }
       var matchingShortCode = this.appModel.get('stops').where({code_short: code_short});

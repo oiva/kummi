@@ -39,14 +39,14 @@ function(Backbone, Stops, Stop) {
         reset: true
       });
     },
-    _onStops: function(collection, response, options) {
+    _onStops: function(collection) {
       console.log('appModel: stops fetched', collection);
       if (collection.code !== null && collection.length === 1) {
         console.log('appModel loaded specific stop');
         this.set({stop: collection.models[0]});
       }
     },
-    _onStopsError: function(collection, response, options) {
+    _onStopsError: function() {
       console.error('appModel: stops fetch failed');
     },
   });

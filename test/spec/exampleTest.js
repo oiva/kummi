@@ -3,7 +3,7 @@
 
 	var root = this;
 
-	root.define( function() {
+	root.define(function() {
 
 		describe('Example Test', function () {
 			it('should have true equal true', function () {
@@ -12,5 +12,4 @@
 		});
 
 	});
-
-}).call( this );
+}).call(this);

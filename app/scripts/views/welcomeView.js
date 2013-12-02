@@ -33,7 +33,7 @@ function(Backbone, NearbyView, SearchView, InfoTeaserView, Template) {
       };
       return context;
     },
-    onPositionError: function(errorCode) {
+    onPositionError: function() {
       console.log('welcome view: position error');
       this.$('#welcome-nearby').hide();
     }

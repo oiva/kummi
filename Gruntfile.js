@@ -1,3 +1,4 @@
+/* jshint indent: 4 */
 'use strict';
 var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
 var mountFolder = function (connect, dir) {
@@ -118,12 +119,14 @@ module.exports = function (grunt) {
         jshint: {
             options: {
                 jshintrc: '.jshintrc',
-                reporter: require('jshint-stylish')
+                reporter: require('jshint-stylish'),
+                ignores: ['app/y/*', 'app/scripts/vendor/*']
             },
             all: [
-                'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
+                '!Gruntfile.js',
                 '!<%= yeoman.app %>/scripts/vendor/*',
+                '<%= yeoman.app %>/scripts/{,*/}*.js',
+                'app/',
                 'test/spec/{,*/}*.js'
             ]
         },

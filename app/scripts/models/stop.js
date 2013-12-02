@@ -51,13 +51,13 @@ function(Backbone, ReportsCollection, UsersCollection) {
     },
     getReports: function() {
       console.log('stop: get reports');
-      if (this.get('code') != null) {
+      if (this.get('code') !== null) {
         this.get('reports').fetch();
       }
     },
     getUsers: function() {
       console.log('stop: get users');
-      if (this.get('code') != null) {
+      if (this.get('code') !== null) {
         this.get('users').fetch();
       }
     },
