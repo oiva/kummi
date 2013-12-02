@@ -1,26 +1,27 @@
 <div class="row header">
-  <h2>Ryhdy pysäkin <span>{{name}}</span> kummiksi!</h2>
+  <div class="col-xs-12 col-sm-12">
+    <h2>Ryhdy pysäkin <span>{{name}}</span> kummiksi!</h2>
+  </div>
 </div>
 
-<div class="row">
-  <form role="form" id="adopt-form">
-    <fieldset>
-      <div class="form-inline form-group">
-        <div class="form-group">
-          <label for="firstname">Etunimi</label>
-          <input type="text" id="firstname" name="firstname" class="form-control" required autofocus="autofocus" />
-        </div>
-        <div class="form-group">
-          <label for="lastname">Sukunimi</label>
-          <input type="text" id="lastname" name="lastname" class="form-control" required />
-        </div>
+
+<form role="form" id="adopt-form">
+  <fieldset>
+    <div class="form-inline form-group">
+      <div class="form-group">
+        <label for="firstname">Etunimi</label>
+        <input type="text" id="firstname" name="firstname" class="form-control" required autofocus="autofocus" />
       </div>
       <div class="form-group">
-        <label for="email">Sähköposti</label>
-        <input type="email" id="email" class="form-control" required />
+        <label for="lastname">Sukunimi</label>
+        <input type="text" id="lastname" name="lastname" class="form-control" required />
       </div>
+    </div>
+    <div class="form-group">
+      <label for="email">Sähköposti</label>
+      <input type="email" id="email" class="form-control" required />
+    </div>
 
-      <button id="send-adopt" type="submit" class="btn btn-default">Ryhdy kummiksi</button>
-    </fieldset>
-  </form>
-</div>
+    <button id="send-adopt" type="submit" class="btn btn-default">Ryhdy kummiksi</button>
+  </fieldset>
+</form>

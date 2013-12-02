@@ -6,6 +6,7 @@ define([
 
   return Backbone.Marionette.ItemView.extend({
     template: Template,
+    className: 'col-xs-12 col-sm-12',
     initialize: function() {
       console.log('stop name view: init', this.options);
       this.listenTo(this.model, 'change:name_fi', this.render);
