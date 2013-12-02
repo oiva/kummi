@@ -57,12 +57,13 @@ function(Backbone, AppModel, AdoptView, WelcomeView, StopView, ReportView) {
     },
 
     adopt: function(code) {
-      if (this.appModel.get('stop').get('code') === null) {
-        appRouter.navigate('', {trigger: true});
-        return;
-      }
       var adoptView = new AdoptView({code: code, model: this.appModel.get('stop')});
       this.app.main.show(adoptView);
+
+      if (this.appModel.get('stop').get('code') !== code &&
+        this.appModel.get('stop').get('code_short') !== code) {
+        this.appModel.loadStop({code: code});
+      }
     },
 
     _stopWithLongCode: function(code) {

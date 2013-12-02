@@ -1,25 +1,26 @@
+{{#if name}}
 <div class="row header">
   <div class="col-xs-12 col-sm-12">
     <h2>Ryhdy pysäkin <span>{{name}}</span> kummiksi!</h2>
   </div>
 </div>
-
+{{/if}}
 
 <form role="form" id="adopt-form">
   <fieldset>
     <div class="form-inline form-group">
       <div class="form-group">
         <label for="firstname">Etunimi</label>
-        <input type="text" id="firstname" name="firstname" class="form-control" required autofocus="autofocus" />
+        <input type="text" id="firstname" name="firstname" class="form-control" required autofocus="autofocus" value="{{firstname}}"/>
       </div>
       <div class="form-group">
         <label for="lastname">Sukunimi</label>
-        <input type="text" id="lastname" name="lastname" class="form-control" required />
+        <input type="text" id="lastname" name="lastname" class="form-control" required value="{{lastname}}"/>
       </div>
     </div>
     <div class="form-group">
       <label for="email">Sähköposti</label>
-      <input type="email" id="email" class="form-control" required />
+      <input type="email" id="email" class="form-control" required value="{{email}}"/>
     </div>
 
     <button id="send-adopt" type="submit" class="btn btn-default">Ryhdy kummiksi</button>
