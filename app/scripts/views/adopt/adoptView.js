@@ -57,7 +57,7 @@ define([
     onInputKeyup: function(event) {
       var input = $(event.currentTarget);
       this.tempValues[input.attr('id')] = input.val();
-      return; 
+      return;
     }
   });
 });
