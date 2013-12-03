@@ -24,7 +24,7 @@ define([
     initialize: function(options) {
       console.log('init adopt view', options);
       this.options = options;
-      this.listenTo(this.model, 'change:code', this.render);
+      this.listenTo(this.model, 'change:name_fi', this.render);
     },
     serializeData: function() {
       var context = {};
@@ -40,8 +40,6 @@ define([
       }
 
       context = _.extend(context, this.tempValues);
-
-      console.log('context', context);
       return context;
     },
     submitAdopt: function() {
