@@ -139,7 +139,6 @@ module.exports = function (grunt) {
                 cssDir: '.tmp/styles',
                 imagesDir: '<%= yeoman.app %>/images',
                 javascriptsDir: '<%= yeoman.app %>/scripts',
-                fontsDir: '<%= yeoman.app %>/styles/fonts',
                 importPath: 'app/y',
                 relativeAssets: true
             },
@@ -303,7 +302,7 @@ module.exports = function (grunt) {
             'compass:server',
             'connect:testserver',
             'express:dev',
-            'exec',
+            //'exec',
             'open',
             'watch'
         ]);
@@ -316,7 +315,7 @@ module.exports = function (grunt) {
         'handlebars',
         'compass',
         'connect:testserver',
-        'exec:mocha'
+        //'exec:mocha'
     ]);
 
     grunt.registerTask('build', [
