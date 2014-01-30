@@ -154,80 +154,42 @@ module.exports = function (grunt) {
         browserify: {
             'app/dist/main-built.js': ['app/scripts/**/*.js'],
             options: {
+                ignore: ['app/scripts/vendor/*.js'],
                 transform: ['hbsfy'],
                 debug: true,
                 shim: {
                     jquery: {
-                        path: 'app/y/jquery/jquery.js',
+                        path: 'app/y/jquery/jquery.min.js',
                         exports: '$'
                     },
                     backbone: {
-                        path: 'app/y/backbone/backbone.js',
+                        path: 'app/y/backbone/backbone-min.js',
                         exports: 'Backbone',
                         depends: {
                             underscore: 'underscore'
                         }
                     },
                     'backbone.babysitter': {
-                        path: 'app/y/backbone.babysitter/lib/backbone.babysitter.js',
+                        path: 'app/y/backbone.babysitter/lib/backbone.babysitter.min.js',
                         exports: 'Backbone.Babysitter',
                         depends: {
                             backbone: 'Backbone'
                         }
                     },
-                    'backbone.wreqr': {
-                        path: 'app/y/backbone.wreqr/lib/backbone.wreqr.js',
-                        exports: 'Backbone.Wreqr',
-                        depends: {
-                            backbone: 'Backbone'
-                        }
-                    },
                     'backbone.marionette': {
-                        path: 'app/y/backbone.marionette/lib/backbone.marionette.js',
+                        path: 'app/y/backbone.marionette/lib/backbone.marionette.min.js',
                         exports: 'Marionette',
                         depends: {
                             jquery: '$',
                             backbone: 'Backbone',
                             underscore: '_'
                         }
+                    },
+                    underscore: {
+                        path: 'app/y/underscore-amd/underscore-min.js',
+                        exports: '_'
                     }
                 }   
-            }
-        },
-
-        // require
-        requirejs: {
-            build: {
-                options: {
-                    almond: true,
-                    name: 'init',
-                    baseUrl: 'app/scripts',
-                    include: "../lib/almond-0.2.7",
-                    mainConfigFile: 'app/scripts/init.js',
-                    optimize: 'uglify2',
-                    paths: {
-                        'templates': '../../.tmp/scripts/templates'
-                    },
-                    preserveLicenseComments: true,
-                    out: '<%= yeoman.dist %>/scripts/init-built.js',
-                    useStrict: true,
-                    wrap: true,
-                    //uglify2: {} // https://github.com/mishoo/UglifyJS2
-                    pragmasOnSave: {
-                        //removes Handlebars.Parser code (used to compile template strings) set
-                        //it to `false` if you need to parse template strings even after build
-                        excludeHbsParser : true,
-                        // kills the entire plugin set once it's built.
-                        excludeHbs: true,
-                        // removes i18n precompiler, handlebars and json2
-                        excludeAfterBuild: true
-                    },
-                    replaceRequireScript: [{
-                        files: ['<%= yeoman.dist %>/index.html'],
-                        module: 'init',
-                        modulePath: '<%= yeoman.dist %>/scripts/init-built'
-                    }],
-                }
             }
         },
 
