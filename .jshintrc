@@ -20,6 +20,7 @@
     "smarttabs": true,
     "globals": {
         "_": true,
+        "$": true,
         "appRouter": true,
         "Communicator": true,
         "define": true,
