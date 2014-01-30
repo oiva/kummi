@@ -1,13 +1,8 @@
-define([
-  'backbone',
-  'hbs!tmpl/stop/reportItem'
-],
+require('backbone.marionette');
 
-function(Backbone, Template) {
-  'use strict';
-  
-  return Backbone.Marionette.ItemView.extend({
+var Template = require('../../../templates/stop/reportItem.hbs');
+
+module.exports = Backbone.Marionette.ItemView.extend({
     template: Template,
     tagName: 'li'
-  });
 });

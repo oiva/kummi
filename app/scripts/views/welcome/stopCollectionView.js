@@ -1,12 +1,7 @@
-define([
-  'backbone',
-  'views/welcome/stopItemView'
-],
+require('backbone.marionette');
 
-function(Backbone, StopItemView) {
-  'use strict';
+var StopItemView = require('./stopItemView');
 
-  return Backbone.Marionette.CollectionView.extend({
+module.exports = Backbone.Marionette.CollectionView.extend({
     itemView: StopItemView
-  });
 });

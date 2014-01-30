@@ -1,10 +1,6 @@
-define([
-  'backbone',
-  'hbs!tmpl/infoTeaser'
-], function(Backbone, Template) {
-  'use strict';
+require('backbone.marionette');
+var Template = require('../../templates/infoTeaser.hbs');
 
-  return Backbone.Marionette.ItemView.extend({
+module.exports = Backbone.Marionette.ItemView.extend({
     template: Template
-  });
 });

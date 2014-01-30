@@ -1,23 +1,17 @@
-define([
-	'backbone',
-	'backbone.marionette'
-],
-function( Backbone ) {
-  'use strict';
+require('backbone.marionette');
 
-	var Communicator = Backbone.Marionette.Controller.extend({
-		initialize: function() {
+var Communicator = Backbone.Marionette.Controller.extend({
+	initialize: function() {
 
-			// create a pub sub
-			this.mediator = new Backbone.Wreqr.EventAggregator();
+		// create a pub sub
+		this.mediator = new Backbone.Wreqr.EventAggregator();
 
-			//create a req/res
-			this.reqres = new Backbone.Wreqr.RequestResponse();
+		//create a req/res
+		this.reqres = new Backbone.Wreqr.RequestResponse();
 
-			// create commands
-			this.command = new Backbone.Wreqr.Commands();
-		}
-	});
-
-	return new Communicator();
+		// create commands
+		this.command = new Backbone.Wreqr.Commands();
+	}
 });
+
+module.exports = Communicator;

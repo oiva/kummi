@@ -1,18 +1,16 @@
-define([
-  'backbone',
-  'models/report'
-],
+require('backbone');
 
-function(Backbone, Report) {
-  'use strict';
+var Report = require('../models/report');
 
-  return Backbone.Collection.extend({
-    model: Report,
-    initialize: function(options) {
-      this.code = options.code;
-    },
-    url: function() {
-      return 'api/report/'+this.code;
-    }
-  });
+
+var ReportsCollection = Backbone.Collection.extend({
+  model: Report,
+  initialize: function(options) {
+    this.code = options.code;
+  },
+  url: function() {
+    return 'api/report/'+this.code;
+  }
 });
+
+module.exports = ReportsCollection;

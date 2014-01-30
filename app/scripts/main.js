@@ -1,10 +1,4 @@
-require([
-	'backbone',
-	'application',
-	'regionManager'
-],
-function ( Backbone, App ) {
-  'use strict';
+var App = require('./application');
+var hbsfy = require('hbsfy');
 
-	App.start();
-});
+App.start();

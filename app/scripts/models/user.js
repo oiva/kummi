@@ -1,15 +1,11 @@
-define([
-  'backbone'
-],
+require('backbone');
 
-function(Backbone) {
-  'use strict';
-  
-  return Backbone.Model.extend({
+var UserModel = Backbone.Model.extend({
     url: '/api/user',
     defaults: {
       email: null,
       code: null
     }
-  });
 });
+
+module.exports = UserModel;

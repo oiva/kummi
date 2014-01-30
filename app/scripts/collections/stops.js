@@ -1,25 +1,23 @@
-define([
-  'backbone',
-  'models/stop'
-],
+require('backbone');
 
-function(Backbone, Stop) {
-  'use strict';
+var Stop = require('../models/stop');
 
-  return Backbone.Collection.extend({
-    model: Stop,
-    initialize: function() {},
-    url: function() {
-      if (typeof this.lat !== undefined &&
-        typeof this.lon !== undefined &&
-        this.lat !== null &&
-        this.lon !== null) {
-        return 'api/stop/'+this.lat+'/'+this.lon;
-      }
-      return null;
-    },
-    parse: function(response) {
-      return _.first(response, 5);
+
+var StopsCollection = Backbone.Collection.extend({
+  model: Stop,
+  initialize: function() {},
+  url: function() {
+    if (typeof this.lat !== undefined &&
+      typeof this.lon !== undefined &&
+      this.lat !== null &&
+      this.lon !== null) {
+      return 'api/stop/'+this.lat+'/'+this.lon;
     }
-  });
+    return null;
+  },
+  parse: function(response) {
+    return _.first(response, 5);
+  }
 });
+
+module.exports = StopsCollection;

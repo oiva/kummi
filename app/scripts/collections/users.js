@@ -1,18 +1,16 @@
-define([
-  'backbone',
-  'models/user'
-],
+require('backbone');
 
-function(Backbone, User) {
-  'use strict';
+var User = require('../models/user');
 
-  return Backbone.Collection.extend({
-    model: User,
-    initialize: function(options) {
-      this.code = options.code;
-    },
-    url: function() {
-      return 'api/user/'+this.code;
-    }
-  });
+
+var UsersCollection = Backbone.Collection.extend({
+  model: User,
+  initialize: function(options) {
+    this.code = options.code;
+  },
+  url: function() {
+    return 'api/user/'+this.code;
+  }
 });
+
+module.exports = UsersCollection;

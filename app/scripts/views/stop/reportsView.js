@@ -1,18 +1,14 @@
-define([
-  'backbone',
-  'collections/reports',
-  'views/stop/reportItemView',
-  'views/stop/reportsEmptyView',
-  'hbs!tmpl/stop/reports'
-],
+require('backbone.marionette');
 
-function(Backbone, Reports, ReportItemView, ReportsEmptyView, Template) {
-  'use strict';
+var Reports = require('../../collections/reports');
+var ReportItemView = require('./reportItemView');
+var ReportsEmptyView = require('./reportsEmptyView');
+var Template = require('../../../templates/stop/reports.hbs');
 
-  return Backbone.Marionette.CompositeView.extend({
-    template: Template,
-    itemView: ReportItemView,
-    itemViewContainer: 'ul',
-    emptyView: ReportsEmptyView
-  });
+
+module.exports = Backbone.Marionette.CompositeView.extend({
+  template: Template,
+  itemView: ReportItemView,
+  itemViewContainer: 'ul',
+  emptyView: ReportsEmptyView
 });
