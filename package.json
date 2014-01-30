@@ -12,7 +12,8 @@
     "open311": "git://github.com/codeforamerica/node-open311.git",
     "q": "~0.9.7",
     "mongoose-findorcreate": "~0.1.2",
-    "react": "~0.8.0"
+    "react": "~0.8.0",
+    "browserify": "~3.24.8"
   },
   "devDependencies": {
     "grunt": "~0.4.2",
