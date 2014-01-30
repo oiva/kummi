@@ -46,7 +46,7 @@ module.exports = function (grunt) {
                     
                     'test/spec/{,**/}*.js'
                 ],
-                tasks: ['exec'],
+                tasks: ['browserify'],
                 options: {
                     livereload: true
                 }
@@ -150,6 +150,50 @@ module.exports = function (grunt) {
             }
         },
         
+
+        browserify: {
+            'app/dist/main-built.js': ['app/scripts/**/*.js'],
+            options: {
+                transform: ['hbsfy'],
+                debug: true,
+                shim: {
+                    jquery: {
+                        path: 'app/y/jquery/jquery.js',
+                        exports: '$'
+                    },
+                    backbone: {
+                        path: 'app/y/backbone/backbone.js',
+                        exports: 'Backbone',
+                        depends: {
+                            underscore: 'underscore'
+                        }
+                    },
+                    'backbone.babysitter': {
+                        path: 'app/y/backbone.babysitter/lib/backbone.babysitter.js',
+                        exports: 'Backbone.Babysitter',
+                        depends: {
+                            backbone: 'Backbone'
+                        }
+                    },
+                    'backbone.wreqr': {
+                        path: 'app/y/backbone.wreqr/lib/backbone.wreqr.js',
+                        exports: 'Backbone.Wreqr',
+                        depends: {
+                            backbone: 'Backbone'
+                        }
+                    },
+                    'backbone.marionette': {
+                        path: 'app/y/backbone.marionette/lib/backbone.marionette.js',
+                        exports: 'Marionette',
+                        depends: {
+                            jquery: '$',
+                            backbone: 'Backbone',
+                            underscore: '_'
+                        }
+                    }
+                }   
+            }
+        },
 
         // require
         requirejs: {
@@ -262,12 +306,6 @@ module.exports = function (grunt) {
             }
         },
 
-        bower: {
-            all: {
-                rjsConfig: '<%= yeoman.app %>/scripts/main.js'
-            }
-        },
-
         // handlebars
         handlebars: {
             compile: {
@@ -299,6 +337,7 @@ module.exports = function (grunt) {
         grunt.task.run([
             'jshint',
             'clean:server',
+            'browserify',
             'compass:server',
             'connect:testserver',
             'express:dev',
@@ -324,7 +363,7 @@ module.exports = function (grunt) {
         'htmlmin',
         'compass:dist',
         'useminPrepare',
-        'requirejs',
+        'browserify',
         'imagemin',
         'concat',
         'cssmin',
@@ -333,4 +372,5 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
+    grunt.loadNpmTasks('grunt-browserify');
 };
