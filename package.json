@@ -2,13 +2,13 @@
   "name": "kummi",
   "version": "0.0.1",
   "dependencies": {
-    "bower": "~1.2.7",
-    "express": "~3.4.4",
+    "bower": "~1.2.8",
+    "express": "~3.4.8",
     "request": "~2.27.0",
-    "async": "~0.2.9",
-    "express-hbs": "~0.5.1",
+    "async": "~0.2.10",
+    "express-hbs": "~0.5.2",
     "underscore": "~1.5.2",
-    "mongoose": "~3.8.1",
+    "mongoose": "~3.8.5",
     "open311": "git://github.com/codeforamerica/node-open311.git",
     "q": "~0.9.7",
     "mongoose-findorcreate": "~0.1.2"
