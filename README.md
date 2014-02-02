@@ -23,6 +23,11 @@ Enter your credentials to `server/config.js`. You'll need:
 On OS X mongoDB can be installed with [Homebrew](http://brew.sh/): `brew install mongodb`
 To create a databse called "kummi" and a user:
 
+    # start mongoDB
+    mongod
+    
+    # connect to mongoDB
+    mongo
     db
     use kummi
     db.addUser({user: "kummi", pwd: "kummi", roles: ["readWrite"]})
