@@ -155,7 +155,7 @@ module.exports = function (grunt) {
             'app/dist/main-built.js': ['app/scripts/**/*.js'],
             options: {
                 ignore: ['app/scripts/vendor/*.js'],
-                transform: ['hbsfy'],
+                transform: ['hbsfy', 'uglifyify'],
                 debug: true,
                 shim: {
                     jquery: {
@@ -205,6 +205,14 @@ module.exports = function (grunt) {
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
             options: {
                 dirs: ['<%= yeoman.dist %>']
+            }
+        },
+
+        uglify: {
+            my_target: {
+                files: {
+                    'app/dist/main-built-min.js': ['app/dist/main-built.js']
+                }
             }
         },
 
@@ -300,6 +308,7 @@ module.exports = function (grunt) {
             'jshint',
             'clean:server',
             'browserify',
+            'uglify',
             'compass:server',
             'connect:testserver',
             'express:dev',
