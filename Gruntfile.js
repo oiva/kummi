@@ -182,7 +182,8 @@ module.exports = function (grunt) {
             },
             dist: {
                 options: {
-                    transform: ['hbsfy', 'uglifyify']
+                    transform: ['hbsfy', 'uglifyify'],
+                    debug: false
                 }
             }
         },
