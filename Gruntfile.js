@@ -152,10 +152,10 @@ module.exports = function (grunt) {
         
 
         browserify: {
-            'app/dist/main-built.js': ['app/scripts/**/*.js'],
+            'app/dist/main-built.js': ['app/scripts/main.js'],
             options: {
                 ignore: ['app/scripts/vendor/*.js'],
-                transform: ['hbsfy', 'uglifyify'],
+                transform: ['hbsfy'],
                 debug: true,
                 shim: {
                     jquery: {
@@ -190,6 +190,11 @@ module.exports = function (grunt) {
                         exports: '_'
                     }
                 }   
+            },
+            dist: {
+                options: {
+                    transform: ['hbsfy', 'uglifyify']
+                }
             }
         },
 
@@ -204,14 +209,10 @@ module.exports = function (grunt) {
             html: ['<%= yeoman.dist %>/{,*/}*.html'],
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css'],
             options: {
-                dirs: ['<%= yeoman.dist %>']
-            }
-        },
-
-        uglify: {
-            my_target: {
-                files: {
-                    'app/dist/main-built-min.js': ['app/dist/main-built.js']
+                dirs: ['<%= yeoman.dist %>'],
+                flow: {
+                    steps: {'js' : [] },
+                    post: []
                 }
             }
         },
@@ -308,7 +309,6 @@ module.exports = function (grunt) {
             'jshint',
             'clean:server',
             'browserify',
-            'uglify',
             'compass:server',
             'connect:testserver',
             'express:dev',
@@ -334,7 +334,7 @@ module.exports = function (grunt) {
         'htmlmin',
         'compass:dist',
         'useminPrepare',
-        'browserify',
+        'browserify:dist',
         'imagemin',
         'concat',
         'cssmin',
