@@ -15,7 +15,7 @@ var Controller = Marionette.Controller.extend({
   },
 
   welcome: function() {
-    var welcomeView = new WelcomeView({collection: this.appModel.get('stops')});
+    var welcomeView = new WelcomeView({model: this.appModel});
     React.renderComponent(welcomeView, $("#main")[0]);
 
     // update location

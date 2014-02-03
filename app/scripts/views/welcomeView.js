@@ -17,7 +17,7 @@ var WelcomeView = React.createBackboneClass({
         </div>
         {this.state.geoLocation?
         <div class="row" id="welcome-nearby">
-          <NearbyView model={this.collection} />
+          <NearbyView model={this.getModel().get('stops')} />
         </div>
         : ''}
         <div class="row" id="welcome-search">

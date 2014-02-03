@@ -2,16 +2,16 @@
 
 'use strict';
 
-var React = require('react');
+require('react.backbone');
 
-module.exports = React.createClass({
+module.exports = React.createBackboneClass({
   render: function() {
     var context = this.getModel().toJSON();
+    var code = context.codeShort ? ' ('+context.codeShort+')' : '';
+
     return (
       <li>
-        <a href="#stop/{context.code}">{context.name} 
-          {context.codeShort ? '({context.codeShort})' : '' }
-        </a>
+        <a href="#stop/{context.code}">{context.name}{code}</a>
       </li>
     );
   }

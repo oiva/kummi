@@ -10,11 +10,11 @@ var NearbyView = React.createBackboneClass({
     return(
       <div class="col-xs-12 col-sm-6 col-md-8">
         <h3>Lähistön pysäkit</h3>
-        {this.model.length === 0 ?
+        {this.getModel().length === 0 ?
         <p id="loading-stops">Ladataan...</p>
         :
         <ul id="stops">
-          {this.collection.map(function(stop) {
+          {this.getModel().map(function(stop) {
             return <StopItemView model={stop} />
           })}
         </ul>
