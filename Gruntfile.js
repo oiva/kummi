@@ -108,7 +108,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish'),
-                ignores: ['app/y/*', 'app/scripts/vendor/*']
+                ignores: ['app/y/*', 'app/scripts/vendor/*', 'app/dist']
             },
             all: [
                 '!Gruntfile.js',
