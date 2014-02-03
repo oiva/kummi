@@ -242,20 +242,14 @@ module.exports = function (grunt) {
         htmlmin: {
             dist: {
                 options: {
-                    /*removeCommentsFromCDATA: true,
+                    removeCommentsFromCDATA: true,
                     // https://github.com/yeoman/grunt-usemin/issues/44
-                    //collapseWhitespace: true,
-                    collapseBooleanAttributes: true,
-                    removeAttributeQuotes: true,
-                    removeRedundantAttributes: true,
-                    useShortDoctype: true,
-                    removeEmptyAttributes: true,
-                    removeOptionalTags: true*/
+                    collapseWhitespace: true,
                 },
                 files: [{
                     expand: true,
-                    cwd: '<%= yeoman.app %>',
-                    src: '*.html',
+                    cwd: '<%= yeoman.dist %>',
+                    src: '<%= yeoman.dist %>/index.html',
                     dest: '<%= yeoman.dist %>'
                 }]
             }
@@ -288,7 +282,16 @@ module.exports = function (grunt) {
                     '.tmp/scripts/templates.js': ['templates/**/*.hbs']
                 }
             }
+        },
+
+        targethtml: {
+            dist: {
+                files: {
+                    'dist/index.html': 'app/index.html'
+                }
+            }
         }
+
     });
 
     grunt.registerTask('createDefaultTemplate', function () {
@@ -308,11 +311,12 @@ module.exports = function (grunt) {
         grunt.task.run([
             'jshint',
             'clean:server',
+            'targethtml',
+            'useminPrepare',
             'browserify',
             'compass:server',
-            'connect:testserver',
             'express:dev',
-            //'exec',
+            'usemin',
             'open',
             'watch'
         ]);
@@ -331,6 +335,7 @@ module.exports = function (grunt) {
     grunt.registerTask('build', [
         'createDefaultTemplate',
         'handlebars',
+        'targethtml',
         'htmlmin',
         'compass:dist',
         'useminPrepare',
@@ -344,4 +349,5 @@ module.exports = function (grunt) {
     ]);
 
     grunt.loadNpmTasks('grunt-browserify');
+    grunt.loadNpmTasks('grunt-targethtml');
 };

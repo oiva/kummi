@@ -26,11 +26,13 @@
         </header>
         <div id="main" class="container"></div>
 
-        <script src="dist/main-built-min.js"></script>
-
-        <script>document.write('<script src="http://'
-            + (location.host || 'localhost').split(':')[0]
-            + ':35729/livereload.js?snipver=1"><\/script>');
-        </script>
+        <!-- build:js js/main-built-min.js -->
+        <script src="dist/main-built.js"></script>
+        <!-- endbuild -->
+        
+        <!--(if target dev)><!-->
+        <script src="//localhost:35729/livereload.js"></script>
+        <!--<!(endif)-->
+        
     </body>
 </html>
