@@ -88,7 +88,8 @@ var Controller = Backbone.Marionette.Controller.extend({
 
   _updatePosition: function() {
     console.log('update position');
-    if (!Modernizr.geolocation) {
+    geolocationEnabled = 'geolocation' in navigator;
+    if (!geolocationEnabled) {
       return;
     }
 

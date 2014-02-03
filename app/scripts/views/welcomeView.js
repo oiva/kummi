@@ -28,7 +28,7 @@ var WelcomeView = Backbone.Marionette.Layout.extend({
   },
   serializeData: function() {
     var context = {
-      geoLocation: Modernizr.geolocation
+      geoLocation: ('geolocation' in navigator)
     };
     return context;
   },
