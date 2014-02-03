@@ -25,12 +25,17 @@ module.exports = function (grunt) {
 
         // watch list
         watch: {
-            
             compass: {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
             },
-            
+            js: {
+                files: [
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
+                    '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
+                ],
+                tasks: ['browserify']
+            },
             livereload: {
                 files: [
                     '<%= yeoman.app %>/*.html',
@@ -41,7 +46,6 @@ module.exports = function (grunt) {
                     
                     'test/spec/{,**/}*.js'
                 ],
-                tasks: ['browserify'],
                 options: {
                     livereload: true
                 }
