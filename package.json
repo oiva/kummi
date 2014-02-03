@@ -1,6 +1,13 @@
 {
   "name": "kummi",
   "version": "0.0.1",
+  "author": "Oiva Eskola <oiva.eskola@gmail.com>",
+  "description": "Pysäkkikummi is a mobile application allowing people to 'adopt' HSL's public transport stops and to report when there are issues with the stop.",
+  "licenese": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/oiva/kummi.git"
+  },
   "dependencies": {
     "bower": "~1.2.8",
     "express": "~3.4.8",
@@ -48,7 +55,7 @@
     "grunt-targethtml": "~0.2.6"
   },
   "engines": {
-    "node": ">=0.10.3"
+    "node": ">=0.10.2"
   },
   "subdomain": "kummi",
   "scripts": {
