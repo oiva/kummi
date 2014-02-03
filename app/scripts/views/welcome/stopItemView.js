@@ -1,9 +1,18 @@
+/** @jsx React.DOM */
+
 'use strict';
-var Marionette = require('backbone.marionette');
 
-var Template = require('../../../templates/welcome/stopItem.hbs');
+var React = require('react');
 
-module.exports = Marionette.ItemView.extend({
-  template: Template,
-  tagName: 'li'
+module.exports = React.createClass({
+  render: function() {
+    var context = this.getModel().toJSON();
+    return (
+      <li>
+        <a href="#stop/{context.code}">{context.name} 
+          {context.codeShort ? '({context.codeShort})' : '' }
+        </a>
+      </li>
+    );
+  }
 });

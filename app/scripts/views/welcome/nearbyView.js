@@ -1,19 +1,26 @@
+/** @jsx React.DOM */
+
 'use strict';
-var Marionette = require('backbone.marionette');
+require('react.backbone');
 
 var StopItemView = require('./stopItemView');
-var Template = require('../../../templates/welcome/nearby.hbs');
 
-var NearbyView = Marionette.CompositeView.extend({
-  itemView: StopItemView,
-  template: Template,
-  itemViewContainer: 'ul',
-  initialize: function() {
-    console.log('nearby init', this.collection);
-  },
-  onCompositeCollectionRendered: function() {
-    console.log('on composite rendered', this.$('#loading-stops'));
-    this.$('#loading-stops').toggle(this.collection.length === 0);
+var NearbyView = React.createBackboneClass({
+  render: function() {
+    return(
+      <div class="col-xs-12 col-sm-6 col-md-8">
+        <h3>Lähistön pysäkit</h3>
+        {this.model.length === 0 ?
+        <p id="loading-stops">Ladataan...</p>
+        :
+        <ul id="stops">
+          {this.collection.map(function(stop) {
+            return <StopItemView model={stop} />
+          })}
+        </ul>
+        }
+      </div>
+    )
   }
 });
 

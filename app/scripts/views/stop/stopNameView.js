@@ -1,25 +1,38 @@
+/** @jsx React.DOM */
+
 'use strict';
 var Marionette = require('backbone.marionette');
+require('react.backbone');
 
-var Template = require('../../../templates/stop/stopName.hbs');
-
-var StopNameView = Marionette.ItemView.extend({
-  template: Template,
+var StopNameView = React.createBackboneClass({
+  displayName: 'Stop Name View',
   className: 'col-xs-12 col-sm-12',
-  initialize: function() {
-    console.log('stop name view: init', this.options);
-    this.listenTo(this.model, 'change:name_fi', this.render);
-  },
-  serializeData: function(options) {
-    this.options = options;
-    var context = this.model.toJSON();
-    if (context.name === undefined && context.name_fi !== null) {
-      context.name = context.name_fi;
+  changeOptions: 'change:name_fi',
+
+  render: function() {
+    var context = this.getModel().toJSON();
+    context.stopName = context.name;
+    if (context.stopName === undefined && context.name_fi !== null) {
+      context.stopName = context.name_fi;
       context.address = context.address_fi;
       context.city = context.city_fi;
     }
     console.log('stop name view: render', context);
-    return context;
+    
+    if (context.stopName) {
+      return (
+        <div>
+          <h1>{context.stopName}</h1>
+          <p class="info">{context.address}, {context.city}</p>
+        </div>
+      );
+    } else {
+      return (
+        <div>
+          <p>Ladataan pysäkin tietoja...</p>
+        </div>
+      );
+    }
   }
 });
 

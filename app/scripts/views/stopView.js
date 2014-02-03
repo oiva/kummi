@@ -1,7 +1,8 @@
-'use strict';
-var Marionette = require('backbone.marionette');
+/** @jsx React.DOM */
 
-var Template = require('../../templates/stop.hbs');
+'use strict';
+require('react.backbone');
+
 var UserModel = require('../models/user');
 var InfoTeaserView = require('./infoTeaserView');
 var AskAdoptionView = require('./stop/askAdoption');
@@ -9,62 +10,48 @@ var ReportsCollectionView = require('./stop/reportsView');
 var ReportLinkView = require('./stop/reportLinkView');
 var StopNameView = require('./stop/stopNameView');
 
-
-var StopView = Marionette.Layout.extend({
-  template: Template,
-  regions: {
-    name: '#name',
-    reports: '#stop-reports-container',
-    report: '#stop-report-status',
-    askAdoption: '#stop-ask-adoption',
-    infoTeaser: '#stop-info-teaser'
-  },
-
-  initialize: function(options) {
-    this.options = options;
-    console.log('stop view init');
-    this.code = this.options.code;
-    this.code_short = this.options.code_short;
-    this.model = this.options.appModel.get('stop');
-    
-    this.listenTo(this.model.get('users'), 'reset', this._onUsers);
-    this.listenTo(this.model, 'change:code', this._onChangeStop);
-    this.listenTo(this.model, 'change:code_short', this._onChangeStop);
-  },
-  onRender: function() {
-    this.name.show(new StopNameView({model: this.model}));
-    this.report.show(new ReportLinkView({model: this.model}));
-    this.reports.show(new ReportsCollectionView({collection: this.model.get('reports')}));
-    this.askAdoption.show(new AskAdoptionView({model: this.model}));
-    this.infoTeaser.show(new InfoTeaserView());
-  },
-  _onChangeStop: function(stop) {
-    console.log('stopView: stop '+stop.get('code')+' loaded', stop);
-    if ((stop.get('code') !== this.code || this.code === null) &&
-      (stop.get('code_short') !== this.code_short || this.code_short === null)) {
-      return;
+var StopView = React.createBackboneClass({
+  
+  render: function() {
+    var users = [];
+    if (typeof this.getModel() !== 'undefined') {
+      users = _.uniq(this.getModel().get('users').models, false, function(user) {
+        return user.get('email');
+      });
     }
-    this.model = stop;
-    this.render();
-    
-    this.model.getReports();
-    this.model.getUsers();
+
+    return (
+      <div>
+        <div class="row" id="name">
+          <StopNameView model={this.getModel()} />
+        </div>
+
+        <div class="row" id="stop-users-container" style="display: none">
+          <div class="col-xs-12 col-sm-12">
+            <h3>Pysäkin kummit</h3>
+            <div id="stop-users">
+              {users.map(function(user) {
+                return <p>'+user.get('email')+'</p>;
+              })}
+            </div>
+          </div>
+        </div>
+        <div class="row" id="stop-report-status">
+          <ReportLinkView model={this.getModel()} />
+        </div>
+        <div class="row" id="stop-reports-container">
+          <ReportsCollectionView collection={this.getModel().get('reports')} />
+        </div>
+        <div class="row" id="stop-ask-adoption">
+          <AskAdoptionView model={this.getModel()} />
+        </div>
+        <div class="row" id="stop-info-teaser">
+          <InfoTeaserView />
+        </div>
+      </div>
+    );
   },
-  _onUsers: function(collection) {
-    var _this = this;
-    console.log('users', collection);
-    var users = _.uniq(collection.models, false, function(user) {
-      return user.get('email');
-    });
-    _.each(users, function(user) {
-      _this.$('#stop-users').append('<p>'+user.get('email')+'</p>');
-    });
-  },
-  adoptStop: function() {
-    this.$('#adopt-form').removeClass('hidden');
-    this.$('#adopt-stop').remove();
-    return false;
-  },
+
   adoptSend: function() {
     var email = this.$('#email').val();
     var user = new UserModel({email: email, code: this.model.get('code')});

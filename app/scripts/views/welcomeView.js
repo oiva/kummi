@@ -1,42 +1,41 @@
-'use strict';
+/** @jsx React.DOM */
 
-var Marionette = require('backbone.marionette');
+'use strict';
+require('react.backbone');
 
 var NearbyView = require('./welcome/nearbyView');
 var SearchView = require('./welcome/searchView');
 var InfoTeaserView = require('./infoTeaserView');
 var Template = require('../../templates/welcome.hbs');
 
-
-var WelcomeView = Marionette.Layout.extend({
-  template: Template,
-  regions: {
-    infoTeaser: '#welcome-info-teaser',
-    nearby: '#welcome-nearby',
-    search: '#welcome-search'
-  },
-  initialize: function(options) {
-    this.options = options;
-    console.log('init welcome view');
-    Communicator.mediator.on('position:error', this.onPositionError, this);
-    this.collection = this.options.appModel.get('stops');
-  },
-  onRender: function() {
-    this.infoTeaser.show(new InfoTeaserView());
-    this.search.show(new SearchView());
-    this.nearby.show(
-      new NearbyView({collection: this.collection})
+var WelcomeView = React.createBackboneClass({
+  render: function() {
+    return (
+      <div>
+        <div class="row" id="welcome-info-teaser">
+          <InfoTeaserView />
+        </div>
+        {this.state.geoLocation?
+        <div class="row" id="welcome-nearby">
+          <NearbyView model={this.collection} />
+        </div>
+        : ''}
+        <div class="row" id="welcome-search">
+          <SearchView />
+        </div>
+      </div>
     );
   },
-  serializeData: function() {
-    var context = {
-      geoLocation: ('geolocation' in navigator)
-    };
-    return context;
+
+  getInitialState: function() {
+    return {geoLocation: true};
   },
   onPositionError: function() {
     console.log('welcome view: position error');
-    this.$('#welcome-nearby').hide();
+    this.setState({geoLocation: false});
+  },
+  componentWillMount: function() {
+    Communicator.mediator.on('position:error', this.onPositionError, this);
   }
 });
 
