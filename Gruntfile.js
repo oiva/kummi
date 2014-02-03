@@ -1,9 +1,5 @@
 /* jshint indent: 4 */
 'use strict';
-var lrSnippet = require('grunt-contrib-livereload/lib/utils').livereloadSnippet;
-var mountFolder = function (connect, dir) {
-    return connect.static(require('path').resolve(dir));
-};
 
 // # Globbing
 // for performance reasons we're only matching one level down:
@@ -37,7 +33,6 @@ module.exports = function (grunt) {
             
             livereload: {
                 files: [
-                    
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
@@ -51,13 +46,6 @@ module.exports = function (grunt) {
                     livereload: true
                 }
             }
-            /* not used at the moment
-            handlebars: {
-                files: [
-                    '<%= yeoman.app %>/templates/*.hbs'
-                ],
-                tasks: ['handlebars']
-            }*/
         },
 
         // testing server
