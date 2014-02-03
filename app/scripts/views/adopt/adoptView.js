@@ -1,60 +1,75 @@
+/** @jsx React.DOM */
+
 'use strict';
-var Marionette = require('backbone.marionette');
 
-var Template = require('../../../templates/adopt/adopt.hbs');
+require('react.backbone');
 
-var AdoptView = Marionette.ItemView.extend({
-  template: Template,
-  id: 'adopt',
-  ui: {
-    'firstName': '#firstname',
-    'lastName': '#lastname',
-    'email': '#email'
-  },
-  events: {
-    'submit #adopt-form': 'submitAdopt',
-    'keyup .form-control': 'onInputKeyup',
-  },
-  tempValues: {
-    'firstname': '',
-    'lastname': '',
-    'email': ''
-  },
-  initialize: function(options) {
-    console.log('init adopt view', options);
-    this.options = options;
-    this.listenTo(this.model, 'change:name_fi', this.render);
-  },
-  serializeData: function() {
-    var context = {};
-    if (this.model === null) {
-      return context;
-    }
-
-    context = this.model.toJSON();
+var AdoptView = React.createBackboneClass({
+  render: function() {
+    var context = this.getModel().toJSON();
     if ((context.name === null || typeof context.name === 'undefined') && context.name_fi !== null) {
       context.name = context.name_fi;
-      context.address = context.address_fi;
-      context.city = context.city_fi;
     }
 
-    context = _.extend(context, this.tempValues);
-    return context;
+    return (
+      <div>
+        <div className="row header">
+          <div className="col-xs-12 col-sm-12">
+            <h2>Ryhdy pysäkin <span>{context.name}</span> kummiksi!</h2>
+          </div>
+        </div>
+
+        <form role="form" id="adopt-form" onSubmit={this.submitAdopt}>
+          <fieldset>
+            <div className="form-inline form-group">
+              <div className="form-group">
+                <label htmlFor="firstname">Etunimi</label>
+                <input type="text" id="firstname" name="firstname" className="form-control" 
+                  required autofocus="autofocus" value={this.state.firstname}
+                  onChange={this.onChange} />
+              </div>
+              <div className="form-group">
+                <label htmlFor="lastname">Sukunimi</label>
+                <input type="text" id="lastname" name="lastname" className="form-control" 
+                required value={this.state.lastname} onChange={this.onChange} />
+              </div>
+            </div>
+            <div className="form-group">
+              <label htmlFor="email">Sähköposti</label>
+              <input type="email" id="email" className="form-control"
+               required value={this.state.email} onChange={this.onChange} />
+            </div>
+
+            <button id="send-adopt" type="submit" className="btn btn-default">
+              Ryhdy kummiksi
+            </button>
+          </fieldset>
+        </form>
+      </div>
+    );
+  },
+  getInitialState: function() {
+    return {
+      firstname: '',
+      lastname: '',
+      email: ''
+    };
   },
   submitAdopt: function() {
     var data = {
-      fistName: this.ui.fistName.val(),
-      lastName: this.ui.lastName.val(),
-      email: this.ui.email.val(),
-      stop: this.options.code
+      fistName: this.state.fistname,
+      lastName: this.state.lastname,
+      email: this.state.email,
+      stop: this.getModel().get('code')
     };
     console.log(data);
     return false;
   },
-  onInputKeyup: function(event) {
+  onChange: function(event) {
     var input = $(event.currentTarget);
-    this.tempValues[input.attr('id')] = input.val();
-    return;
+    var newState = {};
+    newState[input.attr('id')] = input.val();
+    this.setState(newState);
   }
 });
 

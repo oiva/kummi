@@ -1,9 +1,11 @@
+/** @jsx React.DOM */
+
 'use strict';
-var Marionette = require('backbone.marionette');
 
-var Template = require('../../../templates/stop/reportsEmpty.hbs');
+var React = require('react');
 
-module.exports = Marionette.ItemView.extend({
-  template: Template,
-  tagName: 'li'
+module.exports = React.createClass({
+  render: function() {
+    return <p>Tällä pysäkillä ei ole raportoituja ongelmia.</p>;
+  }
 });

@@ -12,15 +12,15 @@ var WelcomeView = React.createBackboneClass({
   render: function() {
     return (
       <div>
-        <div class="row" id="welcome-info-teaser">
+        <div className="row" id="welcome-info-teaser">
           <InfoTeaserView />
         </div>
         {this.state.geoLocation?
-        <div class="row" id="welcome-nearby">
+        <div className="row" id="welcome-nearby">
           <NearbyView model={this.getModel().get('stops')} />
         </div>
         : ''}
-        <div class="row" id="welcome-search">
+        <div className="row" id="welcome-search">
           <SearchView />
         </div>
       </div>

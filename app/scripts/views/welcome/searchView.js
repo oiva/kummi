@@ -6,13 +6,13 @@ var React = require('react');
 var SearchView = React.createClass({
   render: function() {
     return (
-      <div class="col-xs-12 col-sm-6 col-md-8">
+      <div className="col-xs-12 col-sm-6 col-md-8">
         <h3>Etsi pysäkki</h3>
-        <label for="stop-id">Anna pysäkin koodi</label>
+        <label htmlFor="stop-id">Anna pysäkin koodi</label>
 
         <input type="text" name="stop-id" id="stop-id" placeholder="1251" onChange={this.handleChange} />
         
-        <button class="btn btn-primary" id="find-stop" onClick={this.findStop}>Hae</button>
+        <button className="btn btn-primary" id="find-stop" onClick={this.findStop}>Hae</button>
       </div>
     );
   },

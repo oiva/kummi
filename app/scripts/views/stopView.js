@@ -14,7 +14,7 @@ var StopView = React.createBackboneClass({
   
   render: function() {
     var users = [];
-    if (typeof this.getModel() !== 'undefined') {
+    if (typeof this.getModel() !== 'undefined' && this.getModel().get('users').models.length > 0) {
       users = _.uniq(this.getModel().get('users').models, false, function(user) {
         return user.get('email');
       });
@@ -22,30 +22,31 @@ var StopView = React.createBackboneClass({
 
     return (
       <div>
-        <div class="row" id="name">
+        <div className="row" id="name">
           <StopNameView model={this.getModel()} />
         </div>
 
-        <div class="row" id="stop-users-container" style="display: none">
-          <div class="col-xs-12 col-sm-12">
+        <div className="row" id="stop-users-container">
+          <div className="col-xs-12 col-sm-12">
             <h3>Pysäkin kummit</h3>
             <div id="stop-users">
               {users.map(function(user) {
-                return <p>'+user.get('email')+'</p>;
+                return <p>{user.get('email')}</p>;
               })}
             </div>
           </div>
         </div>
-        <div class="row" id="stop-report-status">
+
+        <div className="row" id="stop-report-status">
           <ReportLinkView model={this.getModel()} />
         </div>
-        <div class="row" id="stop-reports-container">
+        <div className="row" id="stop-reports-container">
           <ReportsCollectionView collection={this.getModel().get('reports')} />
         </div>
-        <div class="row" id="stop-ask-adoption">
+        <div className="row" id="stop-ask-adoption">
           <AskAdoptionView model={this.getModel()} />
         </div>
-        <div class="row" id="stop-info-teaser">
+        <div className="row" id="stop-info-teaser">
           <InfoTeaserView />
         </div>
       </div>

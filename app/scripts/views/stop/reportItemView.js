@@ -1,9 +1,11 @@
+/** @jsx React.DOM */
+
 'use strict';
-var Marionette = require('backbone.marionette');
 
-var Template = require('../../../templates/stop/reportItem.hbs');
+var React = require('react');
 
-module.exports = Marionette.ItemView.extend({
-  template: Template,
-  tagName: 'li'
+module.exports = React.createBackboneClass({
+  render: function() {
+    return <li>{this.getModel().get('date')}: {this.getModel().get('description')}</li>;
+  }
 });

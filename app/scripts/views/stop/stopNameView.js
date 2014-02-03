@@ -16,9 +16,7 @@ var StopNameView = React.createBackboneClass({
       context.stopName = context.name_fi;
       context.address = context.address_fi;
       context.city = context.city_fi;
-    }
-    console.log('stop name view: render', context);
-    
+    } 
     if (context.stopName) {
       return (
         <div>
