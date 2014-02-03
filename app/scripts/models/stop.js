@@ -1,4 +1,5 @@
-require('backbone');
+'use strict';
+var Backbone = require('backbone');
 
 var ReportsCollection = require('../collections/reports');
 var UsersCollection = require('../collections/users');

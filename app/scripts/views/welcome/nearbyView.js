@@ -1,9 +1,10 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var StopItemView = require('./stopItemView');
 var Template = require('../../../templates/welcome/nearby.hbs');
 
-var NearbyView = Backbone.Marionette.CompositeView.extend({
+var NearbyView = Marionette.CompositeView.extend({
   itemView: StopItemView,
   template: Template,
   itemViewContainer: 'ul',

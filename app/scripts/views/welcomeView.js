@@ -1,4 +1,6 @@
-require('backbone.marionette');
+'use strict';
+
+var Marionette = require('backbone.marionette');
 
 var NearbyView = require('./welcome/nearbyView');
 var SearchView = require('./welcome/searchView');
@@ -6,7 +8,7 @@ var InfoTeaserView = require('./infoTeaserView');
 var Template = require('../../templates/welcome.hbs');
 
 
-var WelcomeView = Backbone.Marionette.Layout.extend({
+var WelcomeView = Marionette.Layout.extend({
   template: Template,
   regions: {
     infoTeaser: '#welcome-info-teaser',

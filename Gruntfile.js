@@ -154,6 +154,7 @@ module.exports = function (grunt) {
                         path: 'app/y/backbone/backbone-min.js',
                         exports: 'Backbone',
                         depends: {
+                            jquery: '$',
                             underscore: 'underscore'
                         }
                     },

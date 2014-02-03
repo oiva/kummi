@@ -1,7 +1,8 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../templates/stop.hbs');
-var User = require('../models/user');
+var UserModel = require('../models/user');
 var InfoTeaserView = require('./infoTeaserView');
 var AskAdoptionView = require('./stop/askAdoption');
 var ReportsCollectionView = require('./stop/reportsView');
@@ -9,7 +10,7 @@ var ReportLinkView = require('./stop/reportLinkView');
 var StopNameView = require('./stop/stopNameView');
 
 
-var StopView = Backbone.Marionette.Layout.extend({
+var StopView = Marionette.Layout.extend({
   template: Template,
   regions: {
     name: '#name',

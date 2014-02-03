@@ -1,4 +1,5 @@
-require('backbone');
+'use strict';
+var Backbone = require('backbone');
 
 var Report = require('../models/report');
 

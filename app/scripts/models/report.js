@@ -1,4 +1,5 @@
-require('backbone');
+'use strict';
+var Backbone = require('backbone');
 
 var Report = Backbone.Model.extend({
   url: '/api/report',

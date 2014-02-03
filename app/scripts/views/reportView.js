@@ -1,11 +1,12 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../templates/report.hbs');
 var Report = require('../models/report');
 var StopNameView = require('./stop/stopNameView');
 
 
-var ReportView = Backbone.Marionette.Layout.extend({
+var ReportView = Marionette.Layout.extend({
   template: Template,
   model: null,
   regions: {

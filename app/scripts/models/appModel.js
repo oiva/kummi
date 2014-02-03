@@ -1,4 +1,5 @@
-require('backbone');
+'use strict';
+var Backbone = require('backbone');
 
 var Stops = require('../collections/stops');
 var Stop = require('./stop');

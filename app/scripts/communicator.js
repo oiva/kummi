@@ -1,6 +1,8 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
+var Backbone = require('backbone');
 
-var Communicator = Backbone.Marionette.Controller.extend({
+var Communicator = Marionette.Controller.extend({
 	initialize: function() {
 
 		// create a pub sub

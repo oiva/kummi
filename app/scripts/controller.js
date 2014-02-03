@@ -1,4 +1,5 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var AppModel = require('./models/appModel');
 var AdoptView = require('./views/adopt/adoptView');
@@ -6,7 +7,7 @@ var WelcomeView = require('./views/welcomeView');
 var StopView = require('./views/stopView');
 var ReportView = require('./views/reportView');
 
-var Controller = Backbone.Marionette.Controller.extend({
+var Controller = Marionette.Controller.extend({
   initialize: function() {
     console.log('controller init');
     this.app = this.options.app;
@@ -87,8 +88,7 @@ var Controller = Backbone.Marionette.Controller.extend({
   },
 
   _updatePosition: function() {
-    console.log('update position');
-    geolocationEnabled = 'geolocation' in navigator;
+    var geolocationEnabled = 'geolocation' in navigator;
     if (!geolocationEnabled) {
       return;
     }

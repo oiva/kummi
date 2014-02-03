@@ -1,9 +1,10 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../../templates/welcome/search.hbs');
 
 
-var SearchView = Backbone.Marionette.ItemView.extend({
+var SearchView = Marionette.ItemView.extend({
   template: Template,
   events: {
     'click #find-stop': 'findStop'

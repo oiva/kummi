@@ -1,6 +1,7 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
   
-var router = Backbone.Marionette.AppRouter.extend({
+var router = Marionette.AppRouter.extend({
   initialize: function() {
     console.log('router init');
   },

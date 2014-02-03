@@ -1,8 +1,9 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../../templates/adopt/adopt.hbs');
 
-var AdoptView = Backbone.Marionette.ItemView.extend({
+var AdoptView = Marionette.ItemView.extend({
   template: Template,
   id: 'adopt',
   ui: {

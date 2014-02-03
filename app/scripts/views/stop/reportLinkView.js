@@ -1,8 +1,9 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../../templates/stop/reportLink.hbs');
 
-var ReportLinkView = Backbone.Marionette.ItemView.extend({
+var ReportLinkView = Marionette.ItemView.extend({
   template: Template,
   events: {
     'click #report-ok': 'reportOK',

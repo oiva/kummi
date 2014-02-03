@@ -1,9 +1,11 @@
-require('backbone.marionette');
+'use strict';
+var Backbone = require('backbone');
+var Marionette = require('backbone.marionette');
 var communicator = require('./communicator');
 var AppController = require('./controller');
 var AppRouter = require('./router');
 
-var App = new Backbone.Marionette.Application();
+var App = new Marionette.Application();
 
 /* Add application regions here */
 App.addRegions({

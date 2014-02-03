@@ -1,13 +1,15 @@
-var Backbone = require('backbone');
+'use strict';
+
+var Marionette = require('backbone.marionette');
 var Communicator = require('./communicator');
 
-var RegionManager = Backbone.Marionette.Controller.extend({
+var RegionManager = Marionette.Controller.extend({
 
 	initialize: function() {
 		console.log('Initialize a Region Manager');
 
 		/* internal region manager */
-		this._regionManager = new Backbone.Marionette.RegionManager();
+		this._regionManager = new Marionette.RegionManager();
 
 		/* event API */
 		Communicator.reqres.setHandler('RM:addRegion', this.addRegion, this);

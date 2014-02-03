@@ -1,7 +1,8 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var StopItemView = require('./stopItemView');
 
-module.exports = Backbone.Marionette.CollectionView.extend({
-    itemView: StopItemView
+module.exports = Marionette.CollectionView.extend({
+  itemView: StopItemView
 });

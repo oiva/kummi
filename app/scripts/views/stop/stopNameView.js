@@ -1,8 +1,9 @@
-require('backbone.marionette');
+'use strict';
+var Marionette = require('backbone.marionette');
 
 var Template = require('../../../templates/stop/stopName.hbs');
 
-var StopNameView = Backbone.Marionette.ItemView.extend({
+var StopNameView = Marionette.ItemView.extend({
   template: Template,
   className: 'col-xs-12 col-sm-12',
   initialize: function() {
