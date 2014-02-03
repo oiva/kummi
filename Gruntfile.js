@@ -112,7 +112,8 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish'),
-                ignores: ['app/y/*', 'app/scripts/vendor/*', 'app/dist']
+                ignores: ['app/y/*', 'app/scripts/vendor/*', 'app/dist'],
+                globals: ['React']
             },
             all: [
                 '!Gruntfile.js',
@@ -147,7 +148,7 @@ module.exports = function (grunt) {
             'app/dist/main-built.js': ['app/scripts/main.js'],
             options: {
                 ignore: ['app/scripts/vendor/*.js'],
-                transform: ['hbsfy'],
+                transform: ['hbsfy', 'reactify'],
                 debug: true,
                 shim: {
                     jquery: {
@@ -176,6 +177,17 @@ module.exports = function (grunt) {
                             jquery: '$',
                             backbone: 'Backbone',
                             underscore: '_'
+                        }
+                    },
+                    'react': {
+                        path: 'app/y/react/react-with-addons.min.js',
+                        exports: 'React'
+                    },
+                    'react.backbone': {
+                        path: 'app/y/react.backbone/react.backbone.js',
+                        exports: 'React.BackboneMixin',
+                        depends: {
+                            react: 'React'
                         }
                     },
                     underscore: {
@@ -238,7 +250,7 @@ module.exports = function (grunt) {
                 options: {
                     removeCommentsFromCDATA: true,
                     // https://github.com/yeoman/grunt-usemin/issues/44
-                    collapseWhitespace: true,
+                    collapseWhitespace: false,
                 },
                 files: [{
                     expand: true,
