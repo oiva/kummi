@@ -6,7 +6,6 @@ require('react.backbone');
 
 var StopNameView = React.createBackboneClass({
   displayName: 'Stop Name View',
-  className: 'col-xs-12 col-sm-12',
   changeOptions: 'change:name_fi',
 
   render: function() {
@@ -19,7 +18,7 @@ var StopNameView = React.createBackboneClass({
     } 
     if (context.stopName) {
       return (
-        <div>
+        <div className='col-xs-12 col-sm-12'>
           <h1>{context.stopName}</h1>
           <p class="info">{context.address}, {context.city}</p>
         </div>
