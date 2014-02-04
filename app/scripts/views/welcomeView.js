@@ -6,7 +6,6 @@ require('react.backbone');
 var NearbyView = require('./welcome/nearbyView');
 var SearchView = require('./welcome/searchView');
 var InfoTeaserView = require('./infoTeaserView');
-var Template = require('../../templates/welcome.hbs');
 
 var WelcomeView = React.createBackboneClass({
   render: function() {
