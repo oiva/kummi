@@ -15,7 +15,7 @@ var NearbyView = React.createBackboneClass({
         :
         <ul id="stops">
           {this.getModel().map(function(stop) {
-            return <StopItemView model={stop} />
+            return <StopItemView model={stop} />;
           })}
         </ul>
         }

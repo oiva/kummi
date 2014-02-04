@@ -11,7 +11,7 @@ module.exports = React.createBackboneClass({
 
     return (
       <li>
-        <a href="#stop/{context.code}">{context.name}{code}</a>
+        <a href={'#stop/'+context.code}>{context.name}{code}</a>
       </li>
     );
   }
