@@ -7,18 +7,12 @@ var AppRouter = require('./router');
 
 var App = new Marionette.Application();
 
-/* Add application regions here */
-App.addRegions({
-	'header': '#header',
-	'main': '#main'
-});
-
 /* Add initializers here */
 App.addInitializer( function () {
 	window.Communicator = new communicator();
 	Communicator.mediator.trigger('APP:START');
 
-	var appController = new AppController({app: this});
+	var appController = new AppController();
 	var appRouter = new AppRouter({controller: appController});
 	window.appRouter = appRouter;
 });

@@ -7,3 +7,4 @@ server/config.js
 todo.txt
 *.sublime-project
 *.sublime-workspace
+app/scripts/views/**/*.js

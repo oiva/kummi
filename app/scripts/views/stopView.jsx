@@ -21,35 +21,35 @@ var StopView = React.createBackboneClass({
     }
 
     return (
-      React.DOM.div(null, 
-        React.DOM.div( {className:"row", id:"name"}, 
-          StopNameView( {model:this.getModel()} )
-        ),
+      <div>
+        <div className="row" id="name">
+          <StopNameView model={this.getModel()} />
+        </div>
 
-        React.DOM.div( {className:"row", id:"stop-users-container"}, 
-          React.DOM.div( {className:"col-xs-12 col-sm-12"}, 
-            React.DOM.h3(null, "Pysäkin kummit"),
-            React.DOM.div( {id:"stop-users"}, 
-              users.map(function(user) {
-                return React.DOM.p(null, user.get('email'));
-              })
-            )
-          )
-        ),
+        <div className="row" id="stop-users-container">
+          <div className="col-xs-12 col-sm-12">
+            <h3>Pysäkin kummit</h3>
+            <div id="stop-users">
+              {users.map(function(user) {
+                return <p>{user.get('email')}</p>;
+              })}
+            </div>
+          </div>
+        </div>
 
-        React.DOM.div( {className:"row", id:"stop-report-status"}, 
-          ReportLinkView( {model:this.getModel()} )
-        ),
-        React.DOM.div( {className:"row", id:"stop-reports-container"}, 
-          ReportsCollectionView( {collection:this.getModel().get('reports')} )
-        ),
-        React.DOM.div( {className:"row", id:"stop-ask-adoption"}, 
-          AskAdoptionView( {model:this.getModel()} )
-        ),
-        React.DOM.div( {className:"row", id:"stop-info-teaser"}, 
-          InfoTeaserView(null )
-        )
-      )
+        <div className="row" id="stop-report-status">
+          <ReportLinkView model={this.getModel()} />
+        </div>
+        <div className="row" id="stop-reports-container">
+          <ReportsCollectionView collection={this.getModel().get('reports')} />
+        </div>
+        <div className="row" id="stop-ask-adoption">
+          <AskAdoptionView model={this.getModel()} />
+        </div>
+        <div className="row" id="stop-info-teaser">
+          <InfoTeaserView />
+        </div>
+      </div>
     );
   },
 

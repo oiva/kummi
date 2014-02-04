@@ -1,5 +1,6 @@
 'use strict';
 var Marionette = require('backbone.marionette');
+var React = require('react');
 
 var AppModel = require('./models/appModel');
 var AdoptView = require('./views/adopt/adoptView');
@@ -10,13 +11,12 @@ var ReportView = require('./views/reportView');
 var Controller = Marionette.Controller.extend({
   initialize: function() {
     console.log('controller init');
-    this.app = this.options.app;
     this.appModel = new AppModel();
   },
 
   welcome: function() {
-    var welcomeView = new WelcomeView({appModel: this.appModel});
-    this.app.main.show(welcomeView);
+    var welcomeView = new WelcomeView({model: this.appModel});
+    React.renderComponent(welcomeView, $("#main")[0]);
 
     // update location
     // todo: get position
@@ -27,25 +27,19 @@ var Controller = Marionette.Controller.extend({
   },
 
   stop: function(code) {
-    var options = {
-      appModel: this.appModel
-    };
-
     if (code.length <= 6) {
-      options.code_short = code;
       this._stopWithShortCode(code);
     } else {
-      options.code = code;
       this._stopWithLongCode(code);
     }
 
-    var stopView = new StopView(options);
-    this.app.main.show(stopView);
+    var stopView = new StopView({model: this.appModel.get('stop')});
+    React.renderComponent(stopView, $("#main")[0]);
   },
 
   report: function(code) {
     var reportView = new ReportView({code: code, model: this.appModel.get('stop')});
-    this.app.main.show(reportView);
+    React.renderComponent(reportView, $("#main")[0]);
 
     if (this.appModel.get('stop').get('code') !== code &&
       this.appModel.get('stop').get('code_short') !== code) {
@@ -55,7 +49,7 @@ var Controller = Marionette.Controller.extend({
 
   adopt: function(code) {
     var adoptView = new AdoptView({code: code, model: this.appModel.get('stop')});
-    this.app.main.show(adoptView);
+    React.renderComponent(adoptView, $("#main")[0]);
 
     if (this.appModel.get('stop').get('code') !== code &&
       this.appModel.get('stop').get('code_short') !== code) {

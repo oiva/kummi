@@ -7,9 +7,9 @@ var React = require('react');
 module.exports = React.createClass({
   render: function() {
     return (
-      React.DOM.div( {className:"col-xs-12 col-sm-12"}, 
-        React.DOM.p(null, "Tällä pysäkillä ei ole raportoituja ongelmia.")
-      )
+      <div className='col-xs-12 col-sm-12'>
+        <p>Tällä pysäkillä ei ole raportoituja ongelmia.</p>
+      </div>
     );
   }
 });

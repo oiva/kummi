@@ -18,16 +18,16 @@ var StopNameView = React.createBackboneClass({
     } 
     if (context.stopName) {
       return (
-        React.DOM.div( {className:"col-xs-12 col-sm-12"}, 
-          React.DOM.h1(null, context.stopName),
-          React.DOM.p( {class:"info"}, context.address,", ", context.city)
-        )
+        <div className='col-xs-12 col-sm-12'>
+          <h1>{context.stopName}</h1>
+          <p class="info">{context.address}, {context.city}</p>
+        </div>
       );
     } else {
       return (
-        React.DOM.div(null, 
-          React.DOM.p(null, "Ladataan pysäkin tietoja...")
-        )
+        <div>
+          <p>Ladataan pysäkin tietoja...</p>
+        </div>
       );
     }
   }

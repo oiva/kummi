@@ -3,17 +3,17 @@
 'use strict';
 var React = require('react');
 
-var SearchView = React.createClass({displayName: 'SearchView',
+var SearchView = React.createClass({
   render: function() {
     return (
-      React.DOM.div( {className:"col-xs-12 col-sm-6 col-md-8"}, 
-        React.DOM.h3(null, "Etsi pysäkki"),
-        React.DOM.label( {htmlFor:"stop-id"}, "Anna pysäkin koodi"),
+      <div className="col-xs-12 col-sm-6 col-md-8">
+        <h3>Etsi pysäkki</h3>
+        <label htmlFor="stop-id">Anna pysäkin koodi</label>
 
-        React.DOM.input( {type:"text", name:"stop-id", id:"stop-id", placeholder:"1251", onChange:this.handleChange} ),
+        <input type="text" name="stop-id" id="stop-id" placeholder="1251" onChange={this.handleChange} />
         
-        React.DOM.button( {className:"btn btn-primary", id:"find-stop", onClick:this.findStop}, "Hae")
-      )
+        <button className="btn btn-primary" id="find-stop" onClick={this.findStop}>Hae</button>
+      </div>
     );
   },
   getInitialState: function() {

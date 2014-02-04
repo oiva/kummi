@@ -10,19 +10,19 @@ var InfoTeaserView = require('./infoTeaserView');
 var WelcomeView = React.createBackboneClass({
   render: function() {
     return (
-      React.DOM.div(null, 
-        React.DOM.div( {className:"row", id:"welcome-info-teaser"}, 
-          InfoTeaserView(null )
-        ),
-        this.state.geoLocation?
-        React.DOM.div( {className:"row", id:"welcome-nearby"}, 
-          NearbyView( {model:this.getModel().get('stops')} )
-        )
-        : '',
-        React.DOM.div( {className:"row", id:"welcome-search"}, 
-          SearchView(null )
-        )
-      )
+      <div>
+        <div className="row" id="welcome-info-teaser">
+          <InfoTeaserView />
+        </div>
+        {this.state.geoLocation?
+        <div className="row" id="welcome-nearby">
+          <NearbyView model={this.getModel().get('stops')} />
+        </div>
+        : ''}
+        <div className="row" id="welcome-search">
+          <SearchView />
+        </div>
+      </div>
     );
   },
 

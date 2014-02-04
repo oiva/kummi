@@ -7,15 +7,15 @@ var ReportLinkView = React.createBackboneClass({
   render: function() {
     var disabled = (this.getModel().get('code') === null) ? 'disabled' : '';
     return (
-      React.DOM.div( {className:"col-xs-12 col-sm-12"}, 
-        React.DOM.h2(null, "Mitä pysäkille kuuluu?"),
-        React.DOM.button( {type:"button", className:"btn btn-success", id:"report-ok", disabled:disabled, onClick:this.reportOK}, 
-          " Pysäkillä on kaikki OK "
-        ),
-        React.DOM.button( {type:"button", className:"btn btn-danger", id:"report-problem", disabled:disabled, onClick:this.reportProblem}, 
-          " Pysäkillä on ongelma! "
-        )
-      )
+      <div className="col-xs-12 col-sm-12">
+        <h2>Mitä pysäkille kuuluu?</h2>
+        <button type="button" className="btn btn-success" id="report-ok" disabled={disabled} onClick={this.reportOK}>
+          Pysäkillä on kaikki OK
+        </button>
+        <button type="button" className="btn btn-danger" id="report-problem" disabled={disabled} onClick={this.reportProblem}>
+          Pysäkillä on ongelma!
+        </button>
+      </div>
     );
   },
   reportOK: function() {

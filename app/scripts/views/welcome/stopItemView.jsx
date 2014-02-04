@@ -10,9 +10,9 @@ module.exports = React.createBackboneClass({
     var code = context.codeShort ? ' ('+context.codeShort+')' : '';
 
     return (
-      React.DOM.li(null, 
-        React.DOM.a( {href:'#stop/'+context.code}, context.name,code)
-      )
+      <li>
+        <a href={'#stop/'+context.code}>{context.name}{code}</a>
+      </li>
     );
   }
 });
