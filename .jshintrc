@@ -9,14 +9,14 @@
     "immed": true,
     "indent": 2,
     "latedef": true,
-    "newcap": true,
+    "newcap": false,
     "noarg": true,
-    "quotmark": "single",
+    "quotmark": false,
     "regexp": true,
     "undef": true,
     "unused": true,
     "strict": true,
-    "trailing": true,
+    "trailing": false,
     "smarttabs": true,
     "globals": {
         "_": true,
@@ -27,6 +27,7 @@
         "describe": true,
         "expect": true,
         "it": true,
-        "Modernizr": true
+        "Modernizr": true,
+        "React": true
     }
 }

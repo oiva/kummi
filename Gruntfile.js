@@ -1,13 +1,6 @@
 /* jshint indent: 4 */
 'use strict';
 
-// # Globbing
-// for performance reasons we're only matching one level down:
-// 'test/spec/{,*/}*.js'
-// use this if you want to match all subfolders:
-// 'test/spec/**/*.js'
-// templateFramework: 'handlebars'
-
 module.exports = function (grunt) {
     // load all grunt tasks
     require('matchdep').filterDev('grunt-*').forEach(grunt.loadNpmTasks);
@@ -29,10 +22,17 @@ module.exports = function (grunt) {
                 files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}'],
                 tasks: ['compass']
             },
+            jsx: {
+                files: ['app/scripts/views/{,**/}*.jsx'],
+                tasks: ['react', 'browserify'],
+                options: {
+                    nospawn: true
+                }
+            },
             js: {
                 files: [
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
-                    '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
+                    'app/scripts/{,**/}*.js',
+                    '{<%= yeoman.app %>}/templates/{,**/}*.hbs',
                 ],
                 tasks: ['browserify']
             },
@@ -40,10 +40,9 @@ module.exports = function (grunt) {
                 files: [
                     '<%= yeoman.app %>/*.html',
                     '{.tmp,<%= yeoman.app %>}/styles/{,**/}*.css',
-                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.js',
+                    '{.tmp,<%= yeoman.app %>}/scripts/{,**/}*.{js,jsx}',
                     '{.tmp,<%= yeoman.app %>}/templates/{,**/}*.hbs',
                     '<%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp}',
-                    
                     'test/spec/{,**/}*.js'
                 ],
                 options: {
@@ -112,8 +111,7 @@ module.exports = function (grunt) {
             options: {
                 jshintrc: '.jshintrc',
                 reporter: require('jshint-stylish'),
-                ignores: ['app/y/*', 'app/scripts/vendor/*', 'app/dist'],
-                globals: ['React']
+                ignores: ['app/y/*', 'app/scripts/vendor/*', 'app/dist']
             },
             all: [
                 '!Gruntfile.js',
@@ -148,7 +146,7 @@ module.exports = function (grunt) {
             'app/dist/main-built.js': ['app/scripts/main.js'],
             options: {
                 ignore: ['app/scripts/vendor/*.js'],
-                transform: ['hbsfy', 'reactify'],
+                transform: ['hbsfy'],
                 debug: true,
                 shim: {
                     jquery: {
@@ -201,6 +199,17 @@ module.exports = function (grunt) {
                     transform: ['hbsfy', 'uglifyify'],
                     debug: false
                 }
+            }
+        },
+
+        react: {
+            files: {
+                expand: true,
+                ignoreMTime: true,
+                cwd: 'app/scripts/views',
+                src: ['**/*.jsx'],
+                dest: 'app/scripts/views',
+                ext: '.js'
             }
         },
 
@@ -319,6 +328,7 @@ module.exports = function (grunt) {
             'clean:server',
             'targethtml',
             'useminPrepare',
+            'spawn_react',
             'browserify',
             'compass:server',
             'express:dev',
@@ -345,6 +355,7 @@ module.exports = function (grunt) {
         'htmlmin',
         'compass:dist',
         'useminPrepare',
+        'react',
         'browserify:dist',
         'imagemin',
         'concat',
@@ -354,6 +365,20 @@ module.exports = function (grunt) {
         'usemin'
     ]);
 
+    grunt.registerTask('spawn_react', 'Run React in a subprocess', function() {
+        grunt.log.writeln('spawn react');
+        var done = this.async();
+        grunt.util.spawn({grunt: true, args: ['react'], opts: {stdio: 'inherit'}}, function(err) {
+            if (err) {
+                grunt.log.writeln('>> Error compiling React JSX file!');
+            }
+            done();
+        });
+    });
+
     grunt.loadNpmTasks('grunt-browserify');
     grunt.loadNpmTasks('grunt-targethtml');
+    grunt.loadNpmTasks('grunt-exec');
+    grunt.loadNpmTasks('grunt-react');
+    grunt.loadNpmTasks('grunt-contrib-watch');
 };
