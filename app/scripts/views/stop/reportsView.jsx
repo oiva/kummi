@@ -18,7 +18,7 @@ module.exports = React.createBackboneClass({
           <div id="stop-reports">
             <ul>
               {this.getModel().map(function(report) {
-                <ReportItemView model={report} />
+                return <ReportItemView model={report} />;
               })}
             </ul>
           </div>

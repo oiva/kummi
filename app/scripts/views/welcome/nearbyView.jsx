@@ -7,7 +7,7 @@ var StopItemView = require('./stopItemView');
 
 var NearbyView = React.createBackboneClass({
   render: function() {
-    return(
+    return (
       <div className="col-xs-12 col-sm-6 col-md-8">
         <h3>Lähistön pysäkit</h3>
         {this.getModel().length === 0 ?
@@ -20,7 +20,7 @@ var NearbyView = React.createBackboneClass({
         </ul>
         }
       </div>
-    )
+    );
   }
 });
 

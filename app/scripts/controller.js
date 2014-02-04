@@ -9,7 +9,7 @@ var StopView = require('./views/stopView');
 var ReportView = require('./views/reportView');
 
 var Controller = Marionette.Controller.extend({
-  initialize: function(options) {
+  initialize: function() {
     console.log('controller init');
     this.appModel = new AppModel();
   },
@@ -27,10 +27,6 @@ var Controller = Marionette.Controller.extend({
   },
 
   stop: function(code) {
-    var options = {
-      appModel: this.appModel
-    };
-
     if (code.length <= 6) {
       this._stopWithShortCode(code);
     } else {

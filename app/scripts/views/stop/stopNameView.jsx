@@ -1,7 +1,7 @@
 /** @jsx React.DOM */
 
 'use strict';
-var Marionette = require('backbone.marionette');
+
 require('react.backbone');
 
 var StopNameView = React.createBackboneClass({
