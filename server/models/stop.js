@@ -15,7 +15,8 @@ var stopSchema = new Schema({
   coords: String,
   code_short: String,
   address_fi: String,
-  address_sv: String
+  address_sv: String,
+  has_display: Boolean
 });
 
 stopSchema.set('toJSON', {
