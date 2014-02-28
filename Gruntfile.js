@@ -338,6 +338,13 @@ module.exports = function (grunt) {
         ]);
     });
 
+    grunt.registerTask('serve', function(target) {
+        grunt.task.run([
+            'express:dev',
+            'watch'
+        ]);
+    });
+
     // todo fix these
     grunt.registerTask('test', [
         'clean:server',
