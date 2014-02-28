@@ -89,6 +89,8 @@ exports.show = function(req, res) {
   } else {
     options = {code: code};
   }
+
+  // not going to cache here. Successfully fetched stops are in database.
   Stop.findOne(options, function(error, stop) {
     if (error) {
       console.log(error);
@@ -99,12 +101,14 @@ exports.show = function(req, res) {
       return;
     }
 
+    var path = '/hsl/prod/?request=stop&code='+code;
+    path += '&user='+config.reittiopas.user+'&pass='+config.reittiopas.pass;
+
     // fetch stop from reittiopas API
     var options = {
       host: config.reittiopas.host,
-      path: '/hsl/prod/?request=stop&code='+code+'&user='+config.reittiopas.user+'&pass='+config.reittiopas.pass
+      path: path
     };
-    console.log(options.host+options.path);
 
     var req = http.get(options, function(resp) {
       var output = '';
