@@ -13,6 +13,8 @@ var reportSchema = new Schema({
     first_name: String,
     last_name: String,
     email: String,
+    has_display: Boolean,
+    display_problem: String,
     stop: ObjectId // referenced stop
 });
  
