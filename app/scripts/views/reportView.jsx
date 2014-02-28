@@ -16,7 +16,8 @@ var ReportView = React.createBackboneClass({
       context.address = context.address_fi;
       context.city = context.city_fi;
     }
-    context.services = this.getServices();  
+    context.services = this.getServices();
+    context.display_services = this.getDisplayServices();
   
     return (
       <div>
@@ -39,6 +40,28 @@ var ReportView = React.createBackboneClass({
                 );
               })}
             </div>
+
+            <div className="form-group">
+              <h3>Onko pysäkillä aikataulunäyttö?</h3>
+              <div className="checkbox">
+                <label>
+                  <input type="checkbox" name="has-display" id="has-display" checked={this.state.hasDisplay} onChange={this.hasDisplayChecked} />
+                  Kyllä. Pysäkillä on aikataulunäyttö.
+                </label>
+              </div>
+              <div className={this.state.hasDisplay?'':'hidden'} id="display-problems">
+              {context.display_services.map(function(service) {
+                return (
+                  <div className="radio">
+                    <label>
+                      <input type="radio" name="service-code" id={'service-'+service.id} value={service.name} />
+                      {service.name}
+                    </label>
+                  </div>
+                );
+              })}
+              </div>
+            </div>            
 
             <div className="form-group">
               <label htmlFor="description">Mikä on pielessä?</label>
@@ -118,14 +141,26 @@ var ReportView = React.createBackboneClass({
     }
     return services;
   },
+  getDisplayServices: function() {
+    var services = [
+      {id: '1', name: 'Näyttö ei ole päällä'},
+      {id: '2', name: 'Näytössä on virheviesti'},
+      {id: '3', name: 'Näyttö näyttää vääriä aikatauluja'}
+    ];
+    return services;
+  },
   getInitialState: function() {
-    return {description: '', characters: 0};
+    return {description: '', characters: 0, hasDisplay: false};
   },
   updateCharCount: function(event) {
     var description = event.target.value;
     var characters = description.trim().length;
     
     this.setState({description: description, characters: characters});
+  },
+  hasDisplayChecked: function(event) {
+    console.log('hasDisplayChecked');
+    this.setState({hasDisplay: event.target.checked});
   },
   sendReport: function(event) {
     console.log('sendReport');
@@ -137,6 +172,8 @@ var ReportView = React.createBackboneClass({
     var firstname = $('#firstname').val();
     var lastname = $('#lastname').val();
     var email = $('#email').val();
+    var has_display = $('input#has-display').is(':checked');
+    var display_problem = $('input[name=service-code]:checked').val();
 
     report.set({
       description: description,
@@ -144,7 +181,9 @@ var ReportView = React.createBackboneClass({
       code: ''+code,
       first_name: firstname,
       last_name: lastname,
-      email: email
+      email: email,
+      has_display: has_display,
+      display_problem: display_problem
     });
     
     if (this.getModel().get('wgs_coords') !== undefined &&

@@ -8,7 +8,12 @@ var Report = Backbone.Model.extend({
     service_code: null,
     lat: null,
     lon: null,
-    code: null
+    code: null,
+    fist_name: null,
+    last_name: null,
+    email: null,
+    has_display: false,
+    display_problem: null
   },
   setWgsCoords: function(wgs_coords) {
     var coords = wgs_coords.split(',');
